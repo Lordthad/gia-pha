@@ -163,7 +163,8 @@ src/lib/luuTru.ts             Lưu bản nháp, ảnh, xuất/nhập file
 src/lib/baoMat.ts             Mã hoá dữ liệu bằng mật khẩu
 src/lib/github.ts             Đưa dữ liệu thẳng lên kho GitHub
 .node-version                 Phiên bản Node cho máy dựng của Cloudflare
-public/_headers               HTTP header cho Cloudflare Pages
+public/_headers               HTTP header cho Cloudflare Pages (GitHub Pages bỏ qua)
+.github/workflows/deploy.yml  Tự kiểm thử, dựng và đưa web lên GitHub Pages
 src/components/CayGiaPha.tsx  Sơ đồ cây SVG kèm các nút nhập liệu
 src/pages/                    Các màn hình
 ```

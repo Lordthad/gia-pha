@@ -24,6 +24,7 @@ import {
 import { kiemTraToanVen, type MucDo } from '../lib/kiemTra';
 import {
   docFileGiaPha,
+  duongDanDuLieu,
   ghiVaoThuMuc,
   hoTroGhiThuMuc,
   maMoi,
@@ -265,7 +266,7 @@ export default function QuanTri() {
       return;
     }
     try {
-      const res = await fetch(`${import.meta.env.BASE_URL}data/giapha-mau.json`);
+      const res = await fetch(duongDanDuLieu('giapha-mau.json'));
       if (!res.ok) throw new Error(`không đọc được file mẫu (${res.status})`);
       const mau = (await res.json()) as GiaPha;
       capNhat(mau);

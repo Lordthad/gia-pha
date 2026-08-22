@@ -1,5 +1,9 @@
 # Cấu hình cho Cloudflare Pages. File này không được phục vụ ra ngoài,
 # Cloudflare đọc nó để đặt HTTP header cho từng đường dẫn.
+#
+# GitHub Pages KHÔNG đọc file này. Vì vậy phần mềm còn tự chặn nhớ đệm ngay
+# trong mã nguồn (xem duongDanDuLieu trong src/lib/luuTru.ts), để dù đặt web ở
+# đâu thì cập nhật xong cả họ cũng thấy ngay bản mới.
 
 /*
   X-Content-Type-Options: nosniff

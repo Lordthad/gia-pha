@@ -109,6 +109,16 @@ export function xoaBanNhap(): void {
   localStorage.removeItem(KHOA_NHAP);
 }
 
+/**
+ * Đường dẫn tới file dữ liệu, kèm mốc thời gian để không dính bộ nhớ đệm.
+ * GitHub Pages đặt sẵn `Cache-Control: max-age=600` và không đọc file
+ * `public/_headers`, nên không chặn đệm ở đây thì cập nhật xong cả họ vẫn có
+ * thể thấy bản cũ suốt mười phút.
+ */
+export function duongDanDuLieu(ten: string): string {
+  return `${import.meta.env.BASE_URL}data/${ten}?t=${Date.now()}`;
+}
+
 export interface KetQuaNap {
   giaPha?: GiaPha;
   tuBanNhap: boolean;
@@ -138,7 +148,7 @@ export function quenMatKhau(): void {
 export async function napGiaPha(): Promise<KetQuaNap> {
   const nhap = docBanNhap();
   if (nhap) return { giaPha: nhap, tuBanNhap: true };
-  const res = await fetch(`${import.meta.env.BASE_URL}data/giapha.json`);
+  const res = await fetch(duongDanDuLieu('giapha.json'));
   if (!res.ok) throw new Error(`Không đọc được file dữ liệu (${res.status})`);
   const noiDung: unknown = await res.json();
 
