@@ -1,32 +1,8 @@
 {
-  "version": 1,
-  "dongHo": {
-    "ten": "Gia phả dòng họ",
-    "quyUocXungHo": "bac",
-    "maQuanTri": {
-      "muoi": "5nzKJi7kNGKN8/xmcMKPYQ==",
-      "bam": "8NSGsMvPOkhpDrpSczbOG9OBHd23UmcxshKH1U+GcUw=",
-      "vong": 250000
-    }
-  },
-  "nguoi": [
-    {
-      "id": "P001",
-      "hoTen": "Lê Duy Thảo",
-      "gioiTinh": "nam",
-      "sinh": {
-        "duong": "1"
-      }
-    },
-    {
-      "id": "P002",
-      "hoTen": "Lê Duy Hoàng Anh",
-      "gioiTinh": "nam",
-      "sinh": {
-        "duong": "2022-12-22"
-      }
-    }
-  ],
-  "honNhan": [],
-  "capNhat": "2026-08-22T07:10:14.806Z"
+  "maHoa": "aes-gcm-256",
+  "phienBan": 1,
+  "vong": 250000,
+  "muoi": "GNv8hx12+rvjxBWPPi/XTQ==",
+  "vector": "mc6d1dGPjWHecVxQ",
+  "duLieu": "nFmjd2o3H3pr36+XeRYwlRzTQpVEPkIHUrMhlugF/g+UiDAQ14BkpiLm0kE2CMvw9Y9NKKnBm4BIX9VigwXQsAwy9TUC5pX9L5mLQGEaiwfkD4SCoOV/Szojf/z5GWpko7b6leOsgJStR9XEZmNu9rG5s5+RTc8EvPPT2f3dg3STzJSlv7wbPi72uqrMe/eJAXKYl5XEPf0F6SyFlWe8gHLW5AMWaZwgrhkzmVlRzEary42/rjgXPkAZ0Tf1QZRu6Ula8oygls67ixVC+RmUohePkl0zios/qxQwikwoHKkDdAT0iQSzAd7V9AkJuaap0W0h/puhYB7dceOEMgwTbfSZ9bSDaJc+O17/wIkykxrtjqsYT42ODwfwW3ALs5UVRVyHHijqHgrbehH2N//+o4mWmAaixZMuFjWE13aPswx/qcxeRA0gy+9CS6h9LR/s4A=="
 }
