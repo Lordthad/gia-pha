@@ -207,7 +207,25 @@ export default function QuanTri() {
   };
 
   const dayLen = async () => {
-    if (!confirm('Đưa toàn bộ gia phả hiện tại lên mạng cho cả họ xem?')) return;
+    if (!matKhauXem && gp.nguoi.length > 0) {
+      const dong =
+        `CHƯA ĐẶT MÃ XEM.
+
+` +
+        `Dữ liệu sẽ nằm trần trên mạng: ai có đường dẫn cũng đọc được tên, ngày giỗ, phần mộ của ${gp.nguoi.length} người trong họ. ` +
+        `Kho mã nguồn còn giữ lại mọi phiên bản cũ, nên về sau đặt mã cũng không xoá được bản này.
+
+` +
+        `Nên bấm Huỷ, sang thẻ Bảo mật đặt mã xem trước.
+
+Vẫn đưa lên?`;
+      if (!confirm(dong)) {
+        datTab('bao-mat');
+        return;
+      }
+    } else if (!confirm('Đưa toàn bộ gia phả hiện tại lên mạng cho cả họ xem?')) {
+      return;
+    }
     datGhBan(true);
     datGhLoi(undefined);
     try {
@@ -391,6 +409,19 @@ export default function QuanTri() {
           <span className="flex-1">{thongBao}</span>
           <button type="button" onClick={() => datThongBao(undefined)} className="!min-h-0">
             <Icon ten="dong" className="size-5" />
+          </button>
+        </div>
+      )}
+
+      {!matKhauXem && gp.nguoi.length > 0 && (
+        <div className="rounded-xl bg-red-50 px-4 py-3 text-red-900 ring-1 ring-red-300 toi:bg-red-950/50 toi:text-red-200 toi:ring-red-900">
+          <strong>Chưa đặt mã xem.</strong> Gia phả đang để ngỏ — ai có đường dẫn cũng đọc được.{' '}
+          <button
+            type="button"
+            onClick={() => datTab('bao-mat')}
+            className="!min-h-0 font-semibold underline"
+          >
+            Đặt mã xem ngay
           </button>
         </div>
       )}

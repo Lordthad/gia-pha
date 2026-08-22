@@ -125,7 +125,7 @@ export default function TrangCay() {
       hoTen: d.hoTen,
       gioiTinh: d.gioiTinh,
     };
-    if (d.namSinh) p.sinh = { duong: String(d.namSinh) };
+    if (d.namSinh) p.sinh = { duong: String(d.namSinh).padStart(4, '0') };
     if (d.thuTu != null) p.thuTu = d.thuTu;
     if (mau?.chiNhanh) p.chiNhanh = mau.chiNhanh;
     if (mau?.queQuan) p.queQuan = mau.queQuan;
@@ -245,7 +245,7 @@ export default function TrangCay() {
       hoTen: d.hoTen,
       gioiTinh: d.gioiTinh,
       thuTu: d.thuTu,
-      sinh: d.namSinh ? { ...cu.sinh, duong: String(d.namSinh) } : cu.sinh,
+      sinh: d.namSinh ? { ...cu.sinh, duong: String(d.namSinh).padStart(4, '0') } : cu.sinh,
     };
     capNhat({ ...gp, nguoi: gp.nguoi.map((x) => (x.id === nguoiId ? moi : x)) });
   };

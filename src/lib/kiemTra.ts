@@ -1,5 +1,5 @@
 import type { ID } from '../types/giapha';
-import { chaMeIds, namMat, namSinh, type ChiMuc } from './chiMuc';
+import { chaMeIds, layNam, namMat, namSinh, type ChiMuc } from './chiMuc';
 import { chuanHoa } from './tiengViet';
 
 export type MucDo = 'loi' | 'canh-bao' | 'goi-y';
@@ -59,6 +59,21 @@ export function kiemTraToanVen(ci: ChiMuc): VanDe[] {
         thongDiep: `${me.hoTen} được ghi là mẹ của ${p.hoTen} nhưng giới tính là nam.`,
         nguoiIds: [me.id, p.id],
       });
+    }
+
+    // Ngày ghi có ra hình một cái ngày không
+    for (const [ten, nt] of [
+      ['ngày sinh', p.sinh],
+      ['ngày mất', p.mat],
+    ] as const) {
+      if (nt?.duong && layNam(nt) == null) {
+        vd.push({
+          mucDo: 'loi',
+          nhom: 'Ngày tháng',
+          thongDiep: `${p.hoTen} có ${ten} ghi là "${nt.duong}" — không đọc ra năm được nên phần mềm đang bỏ qua. Sửa lại thành năm đủ 4 chữ số.`,
+          nguoiIds: [p.id],
+        });
+      }
     }
 
     // Năm sinh / năm mất

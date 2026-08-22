@@ -33,6 +33,14 @@ const O =
 
 const TEN_THU_TU = ['cả', 'hai', 'ba', 'tư', 'năm', 'sáu'];
 
+/** Năm sinh phải ra hình một cái năm, tránh gõ nhầm 1 hoặc 19 rồi bỏ dở. */
+function loiNamSinh(nam?: number): string | undefined {
+  if (nam == null) return undefined;
+  if (nam < 1000) return 'Năm phải đủ 4 chữ số, ví dụ 1954.';
+  if (nam > new Date().getFullYear() + 1) return 'Năm này ở tương lai, xem lại giúp.';
+  return undefined;
+}
+
 /** Hộp thoại nhập nhanh dùng khi dựng cây trực tiếp trên sơ đồ. */
 export default function ThemNhanh({
   tieuDe,
@@ -153,6 +161,11 @@ export default function ThemNhanh({
                 placeholder="1950"
                 className={O}
               />
+              {loiNamSinh(d.namSinh) && (
+                <span className="mt-1 block text-xs text-amber-700 toi:text-amber-500">
+                  {loiNamSinh(d.namSinh)}
+                </span>
+              )}
             </label>
             {hoiThuTuVo == null && (
               <label className="block">
