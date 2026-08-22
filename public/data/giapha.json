@@ -1,8 +1,16 @@
 {
-  "maHoa": "aes-gcm-256",
-  "phienBan": 1,
-  "vong": 250000,
-  "muoi": "GNv8hx12+rvjxBWPPi/XTQ==",
-  "vector": "mc6d1dGPjWHecVxQ",
-  "duLieu": "nFmjd2o3H3pr36+XeRYwlRzTQpVEPkIHUrMhlugF/g+UiDAQ14BkpiLm0kE2CMvw9Y9NKKnBm4BIX9VigwXQsAwy9TUC5pX9L5mLQGEaiwfkD4SCoOV/Szojf/z5GWpko7b6leOsgJStR9XEZmNu9rG5s5+RTc8EvPPT2f3dg3STzJSlv7wbPi72uqrMe/eJAXKYl5XEPf0F6SyFlWe8gHLW5AMWaZwgrhkzmVlRzEary42/rjgXPkAZ0Tf1QZRu6Ula8oygls67ixVC+RmUohePkl0zios/qxQwikwoHKkDdAT0iQSzAd7V9AkJuaap0W0h/puhYB7dceOEMgwTbfSZ9bSDaJc+O17/wIkykxrtjqsYT42ODwfwW3ALs5UVRVyHHijqHgrbehH2N//+o4mWmAaixZMuFjWE13aPswx/qcxeRA0gy+9CS6h9LR/s4A=="
+  "version": 1,
+  "dongHo": {
+    "ten": "Gia phả dòng họ Lê Duy - Làng Đại Bái",
+    "quyUocXungHo": "bac",
+    "maQuanTri": {
+      "muoi": "5nzKJi7kNGKN8/xmcMKPYQ==",
+      "bam": "8NSGsMvPOkhpDrpSczbOG9OBHd23UmcxshKH1U+GcUw=",
+      "vong": 250000
+    },
+    "loiTua": "Chim có tổ, người có tông. Cây có gốc mới nở cành xanh ngọn, nước có nguồn mới bể rộng sông sâu.\n\nDòng họ Lê Duy ta khởi từ cụ thuỷ tổ Lê Duy Loan, lập nghiệp ở làng Đại Bái tỉnh Thanh Hóa. Trải bao đời, con cháu người ở lại quê cha đất tổ, người tha phương lập nghiệp bốn phương trời, nhưng cùng chung một gốc, cùng thờ một tổ.\n\nXưa việc họ chép trong cuốn sổ tay, giấy mực có hạn, chữ nghĩa mai một dần, người sau muốn tra cứu lắm khi không biết hỏi ai. Nay chép lại vào bản gia phả này, để tên tuổi, ngày giỗ, phần mộ các cụ được lưu giữ lâu dài; để con cháu dù ở đâu, mở máy ra là biết mình thuộc đời thứ mấy, gặp người trong họ thì biết đường xưng hô cho phải phép.\n\nGia phả là việc chung của cả họ, không phải của riêng ai. Bản này chắc còn khiếm khuyết, kính mong các bậc cao niên chỉ bảo, con cháu các chi bổ sung thêm vào, để mỗi ngày một đầy đủ hơn.\n\nKính cáo tổ tiên.\n\nLê Duy Ngân — tháng 8 năm 2026"
+  },
+  "nguoi": [],
+  "honNhan": [],
+  "capNhat": "2026-08-22T07:37:51.227Z"
 }
