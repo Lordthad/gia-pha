@@ -1,0 +1,17 @@
+# Cấu hình cho Cloudflare Pages. File này không được phục vụ ra ngoài,
+# Cloudflare đọc nó để đặt HTTP header cho từng đường dẫn.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()
+
+# Dữ liệu gia phả phải luôn lấy bản mới nhất, nếu không thì cập nhật xong
+# vẫn còn thấy bản cũ trong bộ nhớ đệm.
+/data/*
+  Cache-Control: no-cache
+
+# Ảnh đặt tên kèm mốc thời gian nên đổi tên là đổi file, cho phép nhớ lâu.
+/media/*
+  Cache-Control: public, max-age=86400

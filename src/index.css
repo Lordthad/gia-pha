@@ -1,0 +1,52 @@
+@import 'tailwindcss';
+
+@custom-variant toi (&:where(.toi, .toi *));
+
+@theme {
+  --font-sans:
+    'Be Vietnam Pro', ui-sans-serif, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+  --font-serif: 'Noto Serif', Cambria, Georgia, 'Times New Roman', serif;
+}
+
+:root {
+  color-scheme: light;
+}
+.toi {
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-stone-100 text-[17px] leading-relaxed text-stone-900 antialiased;
+  }
+  .toi body {
+    @apply bg-stone-950 text-stone-100;
+  }
+  h1, h2, h3 {
+    @apply font-serif;
+  }
+  /* Vùng bấm đủ rộng cho ngón tay */
+  button, a, select, input, textarea {
+    @apply min-h-[2.75rem];
+  }
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    @apply outline-2 outline-offset-2 outline-amber-700;
+  }
+}
+
+@media print {
+  .khong-in {
+    display: none !important;
+  }
+  body {
+    @apply bg-white text-black text-[12pt];
+  }
+  .trang-in {
+    break-after: page;
+  }
+}

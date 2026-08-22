@@ -1,0 +1,772 @@
+{
+  "version": 1,
+  "dongHo": {
+    "ten": "Dòng họ Nguyễn Đình - làng Đông Ngàn",
+    "thuyToId": "P001",
+    "quyUocXungHo": "bac",
+    "loiTua": "Cây có gốc mới nở cành xanh ngọn, nước có nguồn mới bể rộng sông sâu. Bản gia phả này chép lại thế thứ dòng họ Nguyễn Đình làng Đông Ngàn, khởi từ cụ thuỷ tổ Nguyễn Đình Bảng, để con cháu đời sau biết gốc gác mà giữ gìn nền nếp cha ông.\n\nĐây là DỮ LIỆU MẪU dùng để chạy thử phần mềm. Vào mục Quản trị để xoá dữ liệu mẫu và nhập gia phả thật của dòng họ mình."
+  },
+  "nguoi": [
+    {
+      "id": "P001",
+      "hoTen": "Nguyễn Đình Bảng",
+      "gioiTinh": "nam",
+      "tenThuong": "Cụ đồ Bảng",
+      "chiNhanh": "Tổ",
+      "sinh": {
+        "duong": "1870"
+      },
+      "mat": {
+        "duong": "1938"
+      },
+      "gioAm": {
+        "ngay": 12,
+        "thang": 8
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Nho sinh, dạy học trong làng",
+      "congDuc": "Thuỷ tổ của dòng họ, người khai cơ lập nghiệp tại làng Đông Ngàn. Mở lớp dạy chữ Nho cho con em trong làng, đặt ra tộc ước còn lưu đến nay.",
+      "moPhan": {
+        "moTa": "Mộ tổ, xây năm 1992, hướng đông nam",
+        "nghiaTrang": "Nghĩa trang họ Nguyễn Đình, đồng Cửa Chùa",
+        "lat": 21.1214,
+        "lng": 105.9542
+      },
+      "nguon": "Gia phả bản chép tay năm 1998, tr. 1"
+    },
+    {
+      "id": "P002",
+      "hoTen": "Trần Thị Nhàn",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1874"
+      },
+      "mat": {
+        "duong": "1945"
+      },
+      "gioAm": {
+        "ngay": 3,
+        "thang": 11
+      },
+      "queQuan": "Làng Phù Lưu, Từ Sơn",
+      "congDuc": "Tần tảo nuôi ba người con nên người sau khi cụ ông qua đời.",
+      "nguon": "Gia phả bản chép tay năm 1998, tr. 1"
+    },
+    {
+      "id": "P003",
+      "hoTen": "Nguyễn Đình Cẩn",
+      "gioiTinh": "nam",
+      "chaId": "P001",
+      "meId": "P002",
+      "thuTu": 1,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1898"
+      },
+      "mat": {
+        "duong": "1972"
+      },
+      "gioAm": {
+        "ngay": 20,
+        "thang": 6
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Làm ruộng, trưởng tộc",
+      "congDuc": "Trưởng nam, kế nghiệp trông coi từ đường. Chủ trì việc trùng tu nhà thờ họ năm 1965.",
+      "moPhan": {
+        "moTa": "Mộ cải táng năm 1978",
+        "nghiaTrang": "Nghĩa trang họ Nguyễn Đình, đồng Cửa Chùa"
+      },
+      "nguon": "Gia phả bản chép tay năm 1998, tr. 3"
+    },
+    {
+      "id": "P004",
+      "hoTen": "Lê Thị Duyên",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1901"
+      },
+      "mat": {
+        "duong": "1979"
+      },
+      "gioAm": {
+        "ngay": 8,
+        "thang": 2
+      },
+      "queQuan": "Làng Đình Bảng, Từ Sơn"
+    },
+    {
+      "id": "P005",
+      "hoTen": "Nguyễn Đình Doanh",
+      "gioiTinh": "nam",
+      "chaId": "P001",
+      "meId": "P002",
+      "thuTu": 2,
+      "chiNhanh": "Chi Ất",
+      "sinh": {
+        "duong": "1902"
+      },
+      "mat": {
+        "duong": "1968"
+      },
+      "gioAm": {
+        "ngay": 5,
+        "thang": 9
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Thợ mộc",
+      "congDuc": "Người dựng bộ khung gỗ nhà thờ họ hiện nay.",
+      "nguon": "Gia phả bản chép tay năm 1998, tr. 5"
+    },
+    {
+      "id": "P006",
+      "hoTen": "Phạm Thị Em",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1906"
+      },
+      "mat": {
+        "duong": "1985"
+      },
+      "gioAm": {
+        "ngay": 17,
+        "thang": 4
+      },
+      "queQuan": "Làng Tam Sơn, Từ Sơn"
+    },
+    {
+      "id": "P007",
+      "hoTen": "Nguyễn Thị Gái",
+      "gioiTinh": "nu",
+      "chaId": "P001",
+      "meId": "P002",
+      "thuTu": 3,
+      "chiNhanh": "Chi Bính",
+      "sinh": {
+        "duong": "1905"
+      },
+      "mat": {
+        "duong": "1981"
+      },
+      "gioAm": {
+        "ngay": 28,
+        "thang": 10
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "congDuc": "Con gái út của thuỷ tổ, lấy chồng họ Trần làng bên."
+    },
+    {
+      "id": "P008",
+      "hoTen": "Trần Văn Hạnh",
+      "gioiTinh": "nam",
+      "sinh": {
+        "duong": "1900"
+      },
+      "mat": {
+        "duong": "1975"
+      },
+      "queQuan": "Làng Phù Chẩn, Từ Sơn",
+      "ghiChu": "Người ngoài họ, kết hôn vào họ Nguyễn Đình."
+    },
+    {
+      "id": "P009",
+      "hoTen": "Nguyễn Đình Khoa",
+      "gioiTinh": "nam",
+      "chaId": "P003",
+      "meId": "P004",
+      "thuTu": 1,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1925"
+      },
+      "mat": {
+        "duong": "1998"
+      },
+      "gioAm": {
+        "ngay": 14,
+        "thang": 7
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Bộ đội, sau làm ruộng",
+      "hocVan": "Hết bậc tiểu học Pháp - Việt",
+      "congDuc": "Tham gia kháng chiến chống Pháp. Về làng giữ việc họ thay cha từ năm 1970.",
+      "nguon": "Gia phả bản chép tay năm 1998, tr. 7"
+    },
+    {
+      "id": "P010",
+      "hoTen": "Vũ Thị Lan",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1929"
+      },
+      "mat": {
+        "duong": "2009"
+      },
+      "gioAm": {
+        "ngay": 2,
+        "thang": 5
+      },
+      "queQuan": "Làng Yên Thường, Gia Lâm"
+    },
+    {
+      "id": "P011",
+      "hoTen": "Nguyễn Đình Lộc",
+      "gioiTinh": "nam",
+      "chaId": "P003",
+      "meId": "P004",
+      "thuTu": 2,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1928"
+      },
+      "mat": {
+        "duong": "2003"
+      },
+      "gioAm": {
+        "ngay": 9,
+        "thang": 3
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Giáo viên cấp hai",
+      "congDuc": "Người đầu tiên trong họ chép lại gia phả bằng chữ quốc ngữ, năm 1998.",
+      "nguon": "Gia phả bản chép tay năm 1998, lời tựa"
+    },
+    {
+      "id": "P012",
+      "hoTen": "Đỗ Thị Mai",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1932"
+      },
+      "queQuan": "Làng Đại Đình, Tiên Du"
+    },
+    {
+      "id": "P013",
+      "hoTen": "Nguyễn Thị Nhung",
+      "gioiTinh": "nu",
+      "chaId": "P003",
+      "meId": "P004",
+      "thuTu": 3,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1931"
+      },
+      "mat": {
+        "duong": "2015"
+      },
+      "gioAm": {
+        "ngay": 21,
+        "thang": 12
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh"
+    },
+    {
+      "id": "P014",
+      "hoTen": "Bùi Văn Ổn",
+      "gioiTinh": "nam",
+      "sinh": {
+        "duong": "1928"
+      },
+      "mat": {
+        "duong": "2001"
+      },
+      "queQuan": "Làng Nội Duệ, Tiên Du",
+      "ghiChu": "Người ngoài họ."
+    },
+    {
+      "id": "P015",
+      "hoTen": "Nguyễn Đình Phú",
+      "gioiTinh": "nam",
+      "chaId": "P005",
+      "meId": "P006",
+      "thuTu": 1,
+      "chiNhanh": "Chi Ất",
+      "sinh": {
+        "duong": "1930"
+      },
+      "mat": {
+        "duong": "2007"
+      },
+      "gioAm": {
+        "ngay": 11,
+        "thang": 1
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Thợ mộc nối nghiệp cha"
+    },
+    {
+      "id": "P016",
+      "hoTen": "Ngô Thị Quyên",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1935"
+      },
+      "mat": {
+        "duong": "2018"
+      },
+      "gioAm": {
+        "ngay": 6,
+        "thang": 6
+      },
+      "queQuan": "Làng Trang Liệt, Từ Sơn"
+    },
+    {
+      "id": "P044",
+      "hoTen": "Lê Thị Tâm",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1938"
+      },
+      "mat": {
+        "duong": "2016"
+      },
+      "gioAm": {
+        "ngay": 24,
+        "thang": 3
+      },
+      "queQuan": "Làng Hương Mạc, Từ Sơn",
+      "ghiChu": "Vợ hai của ông Nguyễn Đình Phú."
+    },
+    {
+      "id": "P017",
+      "hoTen": "Nguyễn Thị Riêng",
+      "gioiTinh": "nu",
+      "chaId": "P005",
+      "meId": "P006",
+      "thuTu": 2,
+      "chiNhanh": "Chi Ất",
+      "sinh": {
+        "duong": "1934"
+      },
+      "mat": {
+        "duong": "2012"
+      },
+      "gioAm": {
+        "ngay": 30,
+        "thang": 8
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ghiChu": "Không lập gia đình, ở vậy trông nom cha mẹ già."
+    },
+    {
+      "id": "P018",
+      "hoTen": "Trần Thị Sen",
+      "gioiTinh": "nu",
+      "chaId": "P008",
+      "meId": "P007",
+      "thuTu": 1,
+      "chiNhanh": "Chi Bính",
+      "sinh": {
+        "duong": "1932"
+      },
+      "mat": {
+        "duong": "2010"
+      },
+      "gioAm": {
+        "ngay": 19,
+        "thang": 9
+      },
+      "queQuan": "Làng Phù Chẩn, Từ Sơn"
+    },
+    {
+      "id": "P019",
+      "hoTen": "Trần Văn Tài",
+      "gioiTinh": "nam",
+      "chaId": "P008",
+      "meId": "P007",
+      "thuTu": 2,
+      "chiNhanh": "Chi Bính",
+      "sinh": {
+        "duong": "1935"
+      },
+      "queQuan": "Làng Phù Chẩn, Từ Sơn"
+    },
+    {
+      "id": "P020",
+      "hoTen": "Nguyễn Đình Uy",
+      "gioiTinh": "nam",
+      "chaId": "P009",
+      "meId": "P010",
+      "thuTu": 1,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1950"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Kỹ sư xây dựng, đã nghỉ hưu",
+      "congDuc": "Trưởng tộc đương nhiệm, chủ trì việc tu bổ mộ tổ năm 2015."
+    },
+    {
+      "id": "P021",
+      "hoTen": "Hoàng Thị Vân",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1954"
+      },
+      "queQuan": "Thành phố Bắc Ninh"
+    },
+    {
+      "id": "P022",
+      "hoTen": "Nguyễn Thị Xuân",
+      "gioiTinh": "nu",
+      "chaId": "P009",
+      "meId": "P010",
+      "thuTu": 2,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1953"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh"
+    },
+    {
+      "id": "P023",
+      "hoTen": "Nguyễn Đình Yên",
+      "gioiTinh": "nam",
+      "chaId": "P011",
+      "meId": "P012",
+      "thuTu": 1,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1955"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Giáo viên, đã nghỉ hưu"
+    },
+    {
+      "id": "P024",
+      "hoTen": "Lý Thị An",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1959"
+      },
+      "queQuan": "Hà Nội"
+    },
+    {
+      "id": "P025",
+      "hoTen": "Nguyễn Đình Bình",
+      "gioiTinh": "nam",
+      "chaId": "P011",
+      "meId": "P012",
+      "thuTu": 2,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1958"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Bộ đội"
+    },
+    {
+      "id": "P026",
+      "hoTen": "Bùi Thị Cúc",
+      "gioiTinh": "nu",
+      "chaId": "P014",
+      "meId": "P013",
+      "thuTu": 1,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1957"
+      },
+      "queQuan": "Làng Nội Duệ, Tiên Du"
+    },
+    {
+      "id": "P027",
+      "hoTen": "Nguyễn Đình Dũng",
+      "gioiTinh": "nam",
+      "chaId": "P015",
+      "meId": "P016",
+      "thuTu": 1,
+      "chiNhanh": "Chi Ất",
+      "sinh": {
+        "duong": "1956"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Thợ mộc"
+    },
+    {
+      "id": "P028",
+      "hoTen": "Trịnh Thị Én",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1960"
+      },
+      "queQuan": "Làng Đồng Kỵ, Từ Sơn"
+    },
+    {
+      "id": "P029",
+      "hoTen": "Nguyễn Thị Gấm",
+      "gioiTinh": "nu",
+      "chaId": "P015",
+      "meId": "P016",
+      "thuTu": 2,
+      "chiNhanh": "Chi Ất",
+      "sinh": {
+        "duong": "1960"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh"
+    },
+    {
+      "id": "P045",
+      "hoTen": "Nguyễn Đình Nghĩa",
+      "gioiTinh": "nam",
+      "chaId": "P015",
+      "meId": "P044",
+      "thuTu": 1,
+      "chiNhanh": "Chi Ất",
+      "sinh": {
+        "duong": "1954"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ghiChu": "Con vợ hai. Sinh trước ông Dũng nhưng theo lệ họ vẫn ở vai em."
+    },
+    {
+      "id": "P030",
+      "hoTen": "Trần Thị Hiền",
+      "gioiTinh": "nu",
+      "chaId": "P008",
+      "chiNhanh": "Chi Bính",
+      "sinh": {
+        "duong": "1962"
+      },
+      "queQuan": "Làng Phù Chẩn, Từ Sơn",
+      "ghiChu": "Con gái ông Trần Văn Hạnh với người vợ sau."
+    },
+    {
+      "id": "P031",
+      "hoTen": "Nguyễn Đình Hải",
+      "gioiTinh": "nam",
+      "chaId": "P020",
+      "meId": "P021",
+      "thuTu": 1,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1975"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Kỹ sư phần mềm"
+    },
+    {
+      "id": "P032",
+      "hoTen": "Nguyễn Thị Hoa",
+      "gioiTinh": "nu",
+      "chaId": "P020",
+      "meId": "P021",
+      "thuTu": 2,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1978"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh",
+      "ngheNghiep": "Bác sĩ"
+    },
+    {
+      "id": "P033",
+      "hoTen": "Nguyễn Đình Khang",
+      "gioiTinh": "nam",
+      "chaId": "P023",
+      "meId": "P024",
+      "thuTu": 1,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1980"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh"
+    },
+    {
+      "id": "P034",
+      "hoTen": "Nguyễn Thị Lụa",
+      "gioiTinh": "nu",
+      "chaId": "P023",
+      "meId": "P024",
+      "thuTu": 2,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "1984"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh"
+    },
+    {
+      "id": "P035",
+      "hoTen": "Nguyễn Đình Long",
+      "gioiTinh": "nam",
+      "chaId": "P027",
+      "meId": "P028",
+      "thuTu": 1,
+      "chiNhanh": "Chi Ất",
+      "sinh": {
+        "duong": "1982"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh"
+    },
+    {
+      "id": "P036",
+      "hoTen": "Nguyễn Đình Minh",
+      "gioiTinh": "nam",
+      "chaId": "P027",
+      "meId": "P028",
+      "thuTu": 2,
+      "chiNhanh": "Chi Ất",
+      "sinh": {
+        "duong": "1986"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh"
+    },
+    {
+      "id": "P037",
+      "hoTen": "Vũ Thị Ngọc",
+      "gioiTinh": "nu",
+      "sinh": {
+        "duong": "1979"
+      },
+      "queQuan": "Hà Nội"
+    },
+    {
+      "id": "P038",
+      "hoTen": "Đặng Văn Phong",
+      "gioiTinh": "nam",
+      "sinh": {
+        "duong": "1976"
+      },
+      "queQuan": "Hải Dương",
+      "ghiChu": "Người ngoài họ."
+    },
+    {
+      "id": "P039",
+      "hoTen": "Nguyễn Đình Quang",
+      "gioiTinh": "nam",
+      "chaId": "P031",
+      "meId": "P037",
+      "thuTu": 1,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "2005"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh"
+    },
+    {
+      "id": "P040",
+      "hoTen": "Nguyễn Thị Quỳnh",
+      "gioiTinh": "nu",
+      "chaId": "P031",
+      "meId": "P037",
+      "thuTu": 2,
+      "chiNhanh": "Chi Giáp",
+      "sinh": {
+        "duong": "2009"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh"
+    },
+    {
+      "id": "P041",
+      "hoTen": "Đặng Thị Sương",
+      "gioiTinh": "nu",
+      "chaId": "P038",
+      "meId": "P032",
+      "thuTu": 1,
+      "sinh": {
+        "duong": "2007"
+      },
+      "queQuan": "Hà Nội"
+    },
+    {
+      "id": "P042",
+      "hoTen": "Nguyễn Đình Tuấn",
+      "gioiTinh": "nam",
+      "chaId": "P035",
+      "thuTu": 1,
+      "chiNhanh": "Chi Ất",
+      "sinh": {
+        "duong": "2010"
+      },
+      "queQuan": "Làng Đông Ngàn, huyện Từ Sơn, tỉnh Bắc Ninh"
+    }
+  ],
+  "honNhan": [
+    {
+      "id": "H001",
+      "chongId": "P001",
+      "voId": "P002",
+      "thuTu": 1
+    },
+    {
+      "id": "H002",
+      "chongId": "P003",
+      "voId": "P004",
+      "thuTu": 1
+    },
+    {
+      "id": "H003",
+      "chongId": "P005",
+      "voId": "P006",
+      "thuTu": 1
+    },
+    {
+      "id": "H004",
+      "chongId": "P008",
+      "voId": "P007",
+      "thuTu": 1
+    },
+    {
+      "id": "H005",
+      "chongId": "P009",
+      "voId": "P010",
+      "thuTu": 1
+    },
+    {
+      "id": "H006",
+      "chongId": "P011",
+      "voId": "P012",
+      "thuTu": 1
+    },
+    {
+      "id": "H007",
+      "chongId": "P014",
+      "voId": "P013",
+      "thuTu": 1
+    },
+    {
+      "id": "H008",
+      "chongId": "P015",
+      "voId": "P016",
+      "thuTu": 1,
+      "ghiChu": "Vợ cả"
+    },
+    {
+      "id": "H014",
+      "chongId": "P015",
+      "voId": "P044",
+      "thuTu": 2,
+      "ghiChu": "Vợ hai"
+    },
+    {
+      "id": "H009",
+      "chongId": "P020",
+      "voId": "P021",
+      "thuTu": 1
+    },
+    {
+      "id": "H010",
+      "chongId": "P023",
+      "voId": "P024",
+      "thuTu": 1
+    },
+    {
+      "id": "H011",
+      "chongId": "P027",
+      "voId": "P028",
+      "thuTu": 1
+    },
+    {
+      "id": "H012",
+      "chongId": "P031",
+      "voId": "P037",
+      "thuTu": 1
+    },
+    {
+      "id": "H013",
+      "chongId": "P038",
+      "voId": "P032",
+      "thuTu": 1
+    }
+  ],
+  "capNhat": "2026-08-22T00:00:00.000Z"
+}
