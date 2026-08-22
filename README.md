@@ -119,6 +119,9 @@ mới là thứ có tác dụng thật.
 Toàn bộ các bước cài đặt, và cách để người ở xa tự nhập liệu rồi bấm một nút là dữ liệu lên mạng,
 xem ở **[TRIEN-KHAI.md](TRIEN-KHAI.md)**.
 
+Có sẵn tờ **[HUONG-DAN-NHAP-LIEU.md](HUONG-DAN-NHAP-LIEU.md)** viết cho người nhập liệu — in ra
+để cạnh máy, có chỗ điền hai mã và bảng tra khi gặp trục trặc.
+
 ### Cách thủ công: xuất file rồi tự đưa lên
 
 Dành cho người quen dùng git.
