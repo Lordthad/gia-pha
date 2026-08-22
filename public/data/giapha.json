@@ -2,9 +2,31 @@
   "version": 1,
   "dongHo": {
     "ten": "Gia phả dòng họ",
-    "quyUocXungHo": "bac"
+    "quyUocXungHo": "bac",
+    "maQuanTri": {
+      "muoi": "5nzKJi7kNGKN8/xmcMKPYQ==",
+      "bam": "8NSGsMvPOkhpDrpSczbOG9OBHd23UmcxshKH1U+GcUw=",
+      "vong": 250000
+    }
   },
-  "nguoi": [],
+  "nguoi": [
+    {
+      "id": "P001",
+      "hoTen": "Lê Duy Thảo",
+      "gioiTinh": "nam",
+      "sinh": {
+        "duong": "1"
+      }
+    },
+    {
+      "id": "P002",
+      "hoTen": "Lê Duy Hoàng Anh",
+      "gioiTinh": "nam",
+      "sinh": {
+        "duong": "2022-12-22"
+      }
+    }
+  ],
   "honNhan": [],
-  "capNhat": "2026-08-22T00:00:00.000Z"
+  "capNhat": "2026-08-22T07:10:14.806Z"
 }
