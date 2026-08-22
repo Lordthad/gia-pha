@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { useChiMuc } from '../boiCanh/GiaPhaContext';
 import { voChongCua } from '../lib/chiMuc';
 import { luuAnh, nenAnh } from '../lib/luuTru';
-import type { GioiTinh, ID, NgayThang, Person } from '../types/giapha';
+import type { GioiTinh, ID, Person } from '../types/giapha';
 import AnhNguoi, { useDuongDanAnh } from './AnhNguoi';
 import ChonNguoi from './ChonNguoi';
 import Icon from './Icon';
+import ONgayThang from './ONgayThang';
 
 const O = 'w-full rounded-xl bg-white px-3 py-2.5 ring-1 ring-stone-300 toi:bg-stone-950 toi:ring-stone-700';
 
@@ -71,11 +72,6 @@ export default function FormNguoi({
   const [themBanDoi, datThemBanDoi] = useState<ID>();
 
   const dat = <K extends keyof Person>(khoa: K, gt: Person[K]) => datP((x) => ({ ...x, [khoa]: gt }));
-
-  const datNgay = (khoa: 'sinh' | 'mat', duong: string) => {
-    const cu: NgayThang = p[khoa] ?? {};
-    datP((x) => ({ ...x, [khoa]: duong ? { ...cu, duong } : undefined }));
-  };
 
   const datMo = (khoa: 'moTa' | 'nghiaTrang' | 'lat' | 'lng', gt: string) => {
     datP((x) => {
@@ -251,22 +247,13 @@ export default function FormNguoi({
       </section>
 
       <section className="grid gap-3 sm:grid-cols-2">
-        <Truong nhan="Ngày sinh (dương lịch)" goiY="Ghi 1943-05-12, hoặc 1943-05, hoặc chỉ 1943">
-          <input
-            value={p.sinh?.duong ?? ''}
-            onChange={(e) => datNgay('sinh', e.target.value)}
-            placeholder="1943-05-12"
-            className={O}
-          />
-        </Truong>
-        <Truong nhan="Ngày mất (dương lịch)">
-          <input
-            value={p.mat?.duong ?? ''}
-            onChange={(e) => datNgay('mat', e.target.value)}
-            placeholder="1998-11-03"
-            className={O}
-          />
-        </Truong>
+        <ONgayThang
+          nhan="Ngày sinh (dương lịch)"
+          giaTri={p.sinh}
+          onDoi={(nt) => dat('sinh', nt)}
+          goiY="Chỉ nhớ mỗi năm thì ghi mỗi năm cũng được."
+        />
+        <ONgayThang nhan="Ngày mất (dương lịch)" giaTri={p.mat} onDoi={(nt) => dat('mat', nt)} />
         <Truong nhan="Ngày giỗ âm lịch — ngày" goiY="Để trống thì phần mềm tự quy đổi từ ngày mất.">
           <input
             type="number"

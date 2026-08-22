@@ -32,9 +32,13 @@ export interface CauHinhGitHub extends KhoGitHub {
   token: string;
 }
 
+/**
+ * Điền sẵn kho của dòng họ để người nhập liệu chỉ phải dán mỗi mã truy cập,
+ * đỡ phải gõ lại trên điện thoại. Vẫn sửa được trong giao diện nếu đổi kho.
+ */
 export const KHO_TRONG: LuuGitHub = {
-  chuSoHuu: '',
-  kho: '',
+  chuSoHuu: 'Lordthad',
+  kho: 'gia-pha',
   nhanh: 'main',
   thuMuc: 'public',
 };

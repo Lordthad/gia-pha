@@ -78,15 +78,16 @@ describe('cất mã truy cập GitHub', () => {
     xoaKho();
     expect(localStorage.getItem('gia-pha:github')).toBeNull();
     expect(docKho()).toEqual(KHO_TRONG);
+    expect(docKho().tokenMaHoa).toBeUndefined();
   });
 });
 
 describe('điều kiện đưa lên mạng', () => {
   it('thiếu tên kho hoặc thiếu mã truy cập thì chưa đẩy được', () => {
-    expect(daKhaiKho(KHO_TRONG)).toBe(false);
+    expect(daKhaiKho({ ...KHO_TRONG, chuSoHuu: '', kho: '' })).toBe(false);
     expect(daKhaiKho(KHO)).toBe(true);
     expect(sanSangDay({ ...KHO, token: '' })).toBe(false);
-    expect(sanSangDay({ ...KHO_TRONG, token: TOKEN })).toBe(false);
+    expect(sanSangDay({ ...KHO_TRONG, chuSoHuu: '', kho: '', token: TOKEN })).toBe(false);
     expect(sanSangDay({ ...KHO, token: TOKEN })).toBe(true);
   });
 });

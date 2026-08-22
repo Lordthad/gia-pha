@@ -144,10 +144,12 @@ export default function ThemNhanh({
                 Năm sinh
               </span>
               <input
-                type="number"
                 inputMode="numeric"
                 value={d.namSinh ?? ''}
-                onChange={(e) => dat('namSinh', e.target.value ? Number(e.target.value) : undefined)}
+                onChange={(e) => {
+                  const so = e.target.value.replace(/\D/g, '').slice(0, 4);
+                  dat('namSinh', so ? Number(so) : undefined);
+                }}
                 placeholder="1950"
                 className={O}
               />
@@ -158,10 +160,12 @@ export default function ThemNhanh({
                   {nhanThuTu}
                 </span>
                 <input
-                  type="number"
-                  min={1}
+                  inputMode="numeric"
                   value={d.thuTu ?? ''}
-                  onChange={(e) => dat('thuTu', e.target.value ? Number(e.target.value) : undefined)}
+                  onChange={(e) => {
+                    const so = e.target.value.replace(/\D/g, '').slice(0, 2);
+                    dat('thuTu', so ? Number(so) : undefined);
+                  }}
                   className={O}
                 />
               </label>
