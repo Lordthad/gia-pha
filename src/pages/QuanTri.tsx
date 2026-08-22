@@ -568,7 +568,7 @@ Vẫn đưa lên?`;
               }`}
             >
               {matKhauXem
-                ? 'Đang bật: bản xuất tiếp theo sẽ được mã hoá.'
+                ? 'Đang bật. Mã chỉ có hiệu lực với cả họ sau khi bấm “Đưa lên mạng ngay”.'
                 : 'Chưa đặt: ai vào website cũng đọc được toàn bộ gia phả.'}
             </div>
 
@@ -606,9 +606,22 @@ Vẫn đưa lên?`;
               </p>
             )}
 
-            {mkMoi && mkLai && mkMoi !== mkLai && (
-              <p className="text-sm text-red-700 toi:text-red-400">Hai ô chưa khớp nhau.</p>
-            )}
+            {(() => {
+              const viSao = !mkMoi
+                ? 'Gõ mã vào ô "Mã mới" rồi gõ lại y hệt vào ô "Nhập lại".'
+                : doManhMatKhau(mkMoi).diem === 0
+                  ? 'Mã còn quá ngắn — cần ít nhất 8 ký tự, nên dùng một câu dễ nhớ.'
+                  : !mkLai
+                    ? 'Gõ lại mã lần nữa vào ô "Nhập lại" cho chắc.'
+                    : mkMoi !== mkLai
+                      ? 'Hai ô chưa khớp nhau.'
+                      : undefined;
+              return viSao ? (
+                <p className="text-sm text-amber-700 toi:text-amber-500">
+                  Nút “Đặt mã xem” chưa bấm được: {viSao}
+                </p>
+              ) : null;
+            })()}
 
             <div className="flex flex-wrap gap-2">
               <button

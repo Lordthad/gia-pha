@@ -67,8 +67,10 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
         datGiaPha(kq.giaPha);
         datTuBanNhap(kq.tuBanNhap);
         datGoiMaHoa(kq.goiMaHoa);
-        // Mở lại trang mà mật khẩu đã nhớ vẫn đúng thì giữ để lúc xuất còn dùng.
-        if (kq.giaPha && !kq.tuBanNhap) datMatKhau(matKhauDaNho());
+        // Mã xem là thiết lập của người quản trị, không phụ thuộc dữ liệu đang xem
+        // lấy từ đâu. Phải nạp lại kể cả khi đang có bản nháp, nếu không thì hễ
+        // sửa gì đó rồi mở lại là mã xem biến mất và bản đưa lên mạng hết mã hoá.
+        datMatKhau(matKhauDaNho());
       })
       .catch((e: unknown) => {
         if (!huy) datLoi(e instanceof Error ? e.message : String(e));
@@ -100,7 +102,9 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
 
   const datMatKhauXem = useCallback((matKhau?: string) => {
     datMatKhau(matKhau);
-    if (matKhau) nhoMatKhau(matKhau, false);
+    // Giữ lâu dài: đây là người quản trị đang đặt mã cho cả họ trên máy của mình,
+    // đóng trình duyệt rồi mở lại vẫn phải còn.
+    if (matKhau) nhoMatKhau(matKhau, true);
     else quenMatKhau();
   }, []);
 
