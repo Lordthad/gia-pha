@@ -26,7 +26,7 @@ function useCheDoToi(): [boolean, () => void] {
 }
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const { giaPha, tuBanNhap } = useGiaPha();
+  const { giaPha, tuBanNhap, banTrenMangMoiHon, capNhatTrenMang } = useGiaPha();
   const [toi, doiGiaoDien] = useCheDoToi();
   const viTri = useLocation();
 
@@ -90,13 +90,26 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
 
-        {tuBanNhap && (
-          <div className="bg-amber-100 px-4 py-1.5 text-center text-sm text-amber-900 toi:bg-amber-950 toi:text-amber-200">
-            Đang dùng bản nháp chưa xuất ra file.{' '}
+        {banTrenMangMoiHon ? (
+          <div className="bg-red-100 px-4 py-1.5 text-center text-sm text-red-900 toi:bg-red-950 toi:text-red-200">
+            Trên mạng đã có bản mới hơn
+            {capNhatTrenMang
+              ? ` (cập nhật ${new Date(capNhatTrenMang).toLocaleString('vi-VN')})`
+              : ''}
+            . Máy này đang xem bản nháp cũ.{' '}
             <Link to="/quan-tri" className="font-semibold underline">
-              Vào Quản trị để xuất dữ liệu
+              Vào Quản trị để nạp bản mới
             </Link>
           </div>
+        ) : (
+          tuBanNhap && (
+            <div className="bg-amber-100 px-4 py-1.5 text-center text-sm text-amber-900 toi:bg-amber-950 toi:text-amber-200">
+              Đang dùng bản nháp chưa đưa lên mạng.{' '}
+              <Link to="/quan-tri" className="font-semibold underline">
+                Vào Quản trị để đưa lên
+              </Link>
+            </div>
+          )
         )}
       </header>
 

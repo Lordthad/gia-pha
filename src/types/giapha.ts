@@ -85,6 +85,11 @@ export interface GoiMaHoa {
   muoi: string;
   vector: string;
   duLieu: string;
+  /**
+   * Mốc cập nhật để ngoài vỏ, không mã hoá, chỉ để máy khác biết trên mạng
+   * đã có bản mới hơn hay chưa mà không cần mở khoá.
+   */
+  capNhat?: string;
 }
 
 export interface ThongTinDongHo {
@@ -94,6 +99,12 @@ export interface ThongTinDongHo {
   loiTua?: string;
   /** Mã mở khoá mục Quản trị; để trống thì ai mở trang cũng vào được. */
   maQuanTri?: BamMa;
+  /**
+   * Gia phả này đã đặt mã xem. Ghi vào dữ liệu chứ không để riêng trong từng
+   * máy, để máy nào chưa có mã xem thì bị chặn không cho đưa lên mạng — nếu
+   * không, chỉ một người đưa lên là cả họ mất lớp mã hoá mà không ai hay.
+   */
+  yeuCauMaXem?: boolean;
 }
 
 export interface GiaPha {

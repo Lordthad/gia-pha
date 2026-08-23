@@ -124,6 +124,8 @@ export interface KetQuaNap {
   tuBanNhap: boolean;
   /** File dữ liệu đang được mã hoá, cần mật khẩu xem mới mở được. */
   goiMaHoa?: GoiMaHoa;
+  /** Mốc cập nhật của file trên mạng, để so xem bản nháp trong máy có cũ hơn không. */
+  capNhatTrenMang?: string;
 }
 
 /** Mật khẩu xem đã ghi nhớ trên máy này (nếu người dùng chọn nhớ). */
@@ -144,26 +146,49 @@ export function quenMatKhau(): void {
   localStorage.removeItem(KHOA_MAT_KHAU);
 }
 
-/** Nạp gia phả: ưu tiên bản nháp đang sửa, không có thì lấy file dữ liệu gốc. */
+/**
+ * Nạp gia phả: ưu tiên bản nháp đang sửa, không có thì lấy file dữ liệu gốc.
+ * Dù đang có bản nháp vẫn hỏi file trên mạng, để biết người khác đã cập nhật
+ * gì mới hơn hay chưa — nếu không thì bản nháp cũ sẽ che mất việc của họ.
+ */
 export async function napGiaPha(): Promise<KetQuaNap> {
   const nhap = docBanNhap();
-  if (nhap) return { giaPha: nhap, tuBanNhap: true };
-  const res = await fetch(duongDanDuLieu('giapha.json'));
-  if (!res.ok) throw new Error(`Không đọc được file dữ liệu (${res.status})`);
-  const noiDung: unknown = await res.json();
+
+  let noiDung: unknown;
+  let loiTai: string | undefined;
+  try {
+    const res = await fetch(duongDanDuLieu('giapha.json'));
+    if (res.ok) noiDung = await res.json();
+    else loiTai = `Không đọc được file dữ liệu (${res.status})`;
+  } catch (e) {
+    loiTai = e instanceof Error ? e.message : String(e);
+  }
+
+  const capNhatTrenMang = laGoiMaHoa(noiDung)
+    ? noiDung.capNhat
+    : (noiDung as GiaPha | undefined)?.capNhat;
+
+  // Đang sửa dở thì giữ nguyên việc của người dùng, chỉ kèm mốc trên mạng để đối chiếu.
+  if (nhap) return { giaPha: nhap, tuBanNhap: true, capNhatTrenMang };
+
+  if (noiDung === undefined) throw new Error(loiTai ?? 'Không đọc được file dữ liệu');
 
   if (laGoiMaHoa(noiDung)) {
     const daNho = matKhauDaNho();
     if (daNho) {
       try {
-        return { giaPha: JSON.parse(await giaiMa(noiDung, daNho)) as GiaPha, tuBanNhap: false };
+        return {
+          giaPha: JSON.parse(await giaiMa(noiDung, daNho)) as GiaPha,
+          tuBanNhap: false,
+          capNhatTrenMang,
+        };
       } catch {
         quenMatKhau();
       }
     }
-    return { tuBanNhap: false, goiMaHoa: noiDung };
+    return { tuBanNhap: false, goiMaHoa: noiDung, capNhatTrenMang };
   }
-  return { giaPha: noiDung as GiaPha, tuBanNhap: false };
+  return { giaPha: noiDung as GiaPha, tuBanNhap: false, capNhatTrenMang };
 }
 
 /** Mở khoá gói dữ liệu đã mã hoá; mật khẩu sai sẽ ném MatKhauSai. */
@@ -186,9 +211,10 @@ function taiVe(ten: string, blob: Blob): void {
 
 /** Nội dung file giapha.json sẽ đưa lên mạng: mã hoá sẵn nếu đã đặt mật khẩu xem. */
 export async function noiDungXuat(gp: GiaPha, matKhau?: string): Promise<string> {
-  const tho = JSON.stringify({ ...gp, capNhat: new Date().toISOString() }, null, 2);
+  const luc = new Date().toISOString();
+  const tho = JSON.stringify({ ...gp, capNhat: luc }, null, 2);
   if (!matKhau) return tho;
-  return JSON.stringify(await maHoa(tho, matKhau), null, 2);
+  return JSON.stringify(await maHoa(tho, matKhau, luc), null, 2);
 }
 
 export async function xuatJson(gp: GiaPha, matKhau?: string): Promise<void> {

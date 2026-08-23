@@ -207,6 +207,17 @@ export default function QuanTri() {
   };
 
   const dayLen = async () => {
+    // Gia phả đã đặt mã xem mà máy này không có mã thì đưa lên sẽ gỡ mất lớp
+    // mã hoá của cả họ. Chặn hẳn chứ không chỉ hỏi lại.
+    if (gp.dongHo.yeuCauMaXem && !matKhauXem) {
+      datGhLoi(
+        'Gia phả này đã đặt mã xem, nhưng máy này chưa có mã nên chưa đưa lên được. ' +
+          'Sang thẻ Bảo mật nhập lại đúng mã xem của dòng họ rồi thử lại — nếu bỏ qua, ' +
+          'bản đưa lên sẽ mất mã hoá và cả họ bị lộ.',
+      );
+      datTab('bao-mat');
+      return;
+    }
     if (!matKhauXem && gp.nguoi.length > 0) {
       const dong =
         `CHƯA ĐẶT MÃ XEM.
@@ -413,7 +424,21 @@ Vẫn đưa lên?`;
         </div>
       )}
 
-      {!matKhauXem && gp.nguoi.length > 0 && (
+      {gp.dongHo.yeuCauMaXem && !matKhauXem && (
+        <div className="rounded-xl bg-red-50 px-4 py-3 text-red-900 ring-1 ring-red-300 toi:bg-red-950/50 toi:text-red-200 toi:ring-red-900">
+          <strong>Máy này chưa có mã xem của dòng họ.</strong> Chưa đưa dữ liệu lên mạng được, vì
+          làm vậy sẽ gỡ mất lớp mã hoá của cả họ.{' '}
+          <button
+            type="button"
+            onClick={() => datTab('bao-mat')}
+            className="!min-h-0 font-semibold underline"
+          >
+            Nhập mã xem
+          </button>
+        </div>
+      )}
+
+      {!gp.dongHo.yeuCauMaXem && !matKhauXem && gp.nguoi.length > 0 && (
         <div className="rounded-xl bg-red-50 px-4 py-3 text-red-900 ring-1 ring-red-300 toi:bg-red-950/50 toi:text-red-200 toi:ring-red-900">
           <strong>Chưa đặt mã xem.</strong> Gia phả đang để ngỏ — ai có đường dẫn cũng đọc được.{' '}
           <button
@@ -629,6 +654,7 @@ Vẫn đưa lên?`;
                 disabled={!mkMoi || mkMoi !== mkLai || doManhMatKhau(mkMoi).diem === 0}
                 onClick={() => {
                   datMatKhauXem(mkMoi);
+                  capNhat({ ...gp, dongHo: { ...gp.dongHo, yeuCauMaXem: true } });
                   datMkMoi('');
                   datMkLai('');
                   datTab('xuat-nhap');
@@ -646,6 +672,7 @@ Vẫn đưa lên?`;
                 onClick={() => {
                   if (!confirm('Bỏ mã xem? Bản đưa lên mạng sau sẽ để ngỏ cho mọi người đọc.')) return;
                   datMatKhauXem(undefined);
+                  capNhat({ ...gp, dongHo: { ...gp.dongHo, yeuCauMaXem: undefined } });
                   datThongBao('Đã bỏ mã xem. Nhớ đưa dữ liệu lên mạng lại.');
                 }}
                 className="rounded-xl bg-red-50 px-4 py-2.5 font-medium text-red-700 disabled:opacity-40 toi:bg-red-950 toi:text-red-300"

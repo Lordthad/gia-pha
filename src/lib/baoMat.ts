@@ -67,7 +67,11 @@ export function laGoiMaHoa(x: unknown): x is GoiMaHoa {
   );
 }
 
-export async function maHoa(vanBan: string, matKhau: string): Promise<GoiMaHoa> {
+export async function maHoa(
+  vanBan: string,
+  matKhau: string,
+  capNhat?: string,
+): Promise<GoiMaHoa> {
   const muoi = crypto.getRandomValues(new Uint8Array(16));
   const vector = crypto.getRandomValues(new Uint8Array(12));
   const khoa = await dungKhoa(matKhau, muoi, VONG_MAC_DINH, ['encrypt']);
@@ -83,6 +87,7 @@ export async function maHoa(vanBan: string, matKhau: string): Promise<GoiMaHoa> 
     muoi: sangB64(muoi),
     vector: sangB64(vector),
     duLieu: sangB64(kq),
+    capNhat,
   };
 }
 

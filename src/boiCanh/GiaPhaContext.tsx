@@ -31,6 +31,9 @@ interface BoiCanhGiaPha {
   goiMaHoa?: GoiMaHoa;
   /** Mật khẩu xem đang dùng; cần khi xuất để mã hoá lại. */
   matKhauXem?: string;
+  /** Trên mạng đã có bản mới hơn bản nháp đang sửa trong máy này. */
+  banTrenMangMoiHon: boolean;
+  capNhatTrenMang?: string;
   moKhoa: (matKhau: string, nhoMay: boolean) => Promise<boolean>;
   datMatKhauXem: (matKhau?: string) => void;
   /** Mục Quản trị đã được mở khoá trong phiên này. */
@@ -58,6 +61,7 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
   const [matKhauXem, datMatKhau] = useState<string>();
   const [quanTriMoKhoa, datMoKhoa] = useState(false);
   const [maQuanTriDangDung, datMaDangDung] = useState<string>();
+  const [capNhatTrenMang, datCapNhatTrenMang] = useState<string>();
 
   useEffect(() => {
     let huy = false;
@@ -67,6 +71,7 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
         datGiaPha(kq.giaPha);
         datTuBanNhap(kq.tuBanNhap);
         datGoiMaHoa(kq.goiMaHoa);
+        datCapNhatTrenMang(kq.capNhatTrenMang);
         // Mã xem là thiết lập của người quản trị, không phụ thuộc dữ liệu đang xem
         // lấy từ đâu. Phải nạp lại kể cả khi đang có bản nháp, nếu không thì hễ
         // sửa gì đó rồi mở lại là mã xem biến mất và bản đưa lên mạng hết mã hoá.
@@ -141,6 +146,7 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
       const kq = await napGiaPha();
       datGiaPha(kq.giaPha);
       datGoiMaHoa(kq.goiMaHoa);
+      datCapNhatTrenMang(kq.capNhatTrenMang);
       datTuBanNhap(false);
       datLoi(undefined);
     } catch (e) {
@@ -149,6 +155,11 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
       datDangTai(false);
     }
   }, []);
+
+  // So mốc thời gian để biết người khác đã đưa lên bản mới hơn bản đang sửa dở.
+  const banTrenMangMoiHon = Boolean(
+    tuBanNhap && capNhatTrenMang && giaPha?.capNhat && capNhatTrenMang > giaPha.capNhat,
+  );
 
   const ci = useMemo(() => (giaPha ? dungChiMuc(giaPha) : undefined), [giaPha]);
 
@@ -161,6 +172,8 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
       tuBanNhap,
       goiMaHoa,
       matKhauXem,
+      banTrenMangMoiHon,
+      capNhatTrenMang,
       moKhoa,
       datMatKhauXem,
       quanTriMoKhoa,
@@ -178,6 +191,8 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
       tuBanNhap,
       goiMaHoa,
       matKhauXem,
+      banTrenMangMoiHon,
+      capNhatTrenMang,
       moKhoa,
       datMatKhauXem,
       quanTriMoKhoa,
