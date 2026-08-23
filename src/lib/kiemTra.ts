@@ -66,7 +66,8 @@ export function kiemTraToanVen(ci: ChiMuc): VanDe[] {
       ['ngày sinh', p.sinh],
       ['ngày mất', p.mat],
     ] as const) {
-      if (nt?.duong && layNam(nt) == null) {
+      // Dạng "????-05-12" là cố ý ghi thiếu năm, không phải lỗi.
+      if (nt?.duong && !nt.duong.startsWith('????') && layNam(nt) == null) {
         vd.push({
           mucDo: 'loi',
           nhom: 'Ngày tháng',

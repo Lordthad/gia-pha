@@ -4,7 +4,10 @@ export type GioiTinh = 'nam' | 'nu' | 'khac';
 
 /** Ngày tháng: có thể chỉ biết năm, hoặc chỉ biết ngày âm. */
 export interface NgayThang {
-  /** Dương lịch dạng "1943-05-12" | "1943-05" | "1943" */
+  /**
+   * Dương lịch dạng "1943-05-12" | "1943-05" | "1943".
+   * Nhớ ngày tháng mà quên năm thì ghi "????-05-12" hoặc "????-05".
+   */
   duong?: string;
   am?: { ngay: number; thang: number; nam?: number; nhuan?: boolean };
   khongRo?: boolean;
@@ -30,6 +33,11 @@ export interface Person {
   /** Tên tự, hiệu, thụy */
   tenTu?: string;
   gioiTinh: GioiTinh;
+  /**
+   * Đã mất nhưng không ai còn nhớ năm nào. Có ngày mất hoặc ngày giỗ thì
+   * không cần đánh dấu, phần mềm tự hiểu.
+   */
+  daMat?: boolean;
   chaId?: ID | null;
   meId?: ID | null;
   /** Thứ tự sinh trong các con của cha — dùng để phân biệt bác/chú */

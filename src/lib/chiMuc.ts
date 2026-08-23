@@ -33,9 +33,9 @@ export function namMat(p?: Person): number | undefined {
   return layNam(p?.mat);
 }
 
-/** Người đã mất chưa? Có ngày mất hoặc ngày giỗ thì coi là đã mất. */
+/** Người đã mất chưa? Có dấu tích tay, hoặc có ngày mất, hoặc có ngày giỗ. */
 export function daMat(p: Person): boolean {
-  return Boolean(p.mat || p.gioAm);
+  return Boolean(p.daMat || p.mat || p.gioAm);
 }
 
 export function chaMeIds(p?: Person): ID[] {

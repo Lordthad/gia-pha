@@ -191,11 +191,38 @@ export function amSangDuong(
 
 /* ---------------- Tiện ích ---------------- */
 
-const CAN = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
-const CHI = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+export const CAN = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+export const CHI = [
+  'Tý',
+  'Sửu',
+  'Dần',
+  'Mão',
+  'Thìn',
+  'Tỵ',
+  'Ngọ',
+  'Mùi',
+  'Thân',
+  'Dậu',
+  'Tuất',
+  'Hợi',
+];
 
 export function canChiNam(namAm: number): string {
   return `${CAN[(namAm + 6) % 10]} ${CHI[(namAm + 8) % 12]}`;
+}
+
+/**
+ * Các năm dương lịch mang đúng can chi này trong khoảng đã cho.
+ * Can chi lặp lại 60 năm một lần, nên biết mỗi can chi thì chưa đủ —
+ * phải kèm một khoảng ước chừng mới lần ra được năm.
+ */
+export function cacNamTheoCanChi(can: string, chi: string, tu: number, den: number): number[] {
+  const tim = `${can} ${chi}`;
+  const kq: number[] = [];
+  for (let nam = Math.max(1, Math.floor(tu)); nam <= Math.floor(den); nam++) {
+    if (canChiNam(nam) === tim) kq.push(nam);
+  }
+  return kq;
 }
 
 /** Chuỗi hiển thị: "ngày 12 tháng 8 (nhuận) năm Mậu Dần" */

@@ -22,14 +22,21 @@ function chuoiNgay(nt?: NgayThang): string | undefined {
   const phan: string[] = [];
   if (nt.duong) {
     const [y, m, d] = nt.duong.split('-');
-    phan.push(d ? `${d}/${m}/${y}` : m ? `tháng ${m}/${y}` : `năm ${y}`);
-    if (y) phan.push(`(${canChiNam(Number(y))})`);
+    const roNam = /^\d{3,4}$/.test(y ?? '');
+    if (!roNam) {
+      // Nhớ ngày tháng mà quên năm.
+      phan.push(d ? `ngày ${Number(d)} tháng ${Number(m)}, không rõ năm` : `tháng ${Number(m)}, không rõ năm`);
+    } else {
+      phan.push(d ? `${d}/${m}/${y}` : m ? `tháng ${m}/${y}` : `năm ${y}`);
+      phan.push(`(${canChiNam(Number(y))})`);
+    }
+  } else if (nt.khongRo) {
+    phan.push('không rõ');
   }
   if (nt.am) {
     phan.push(`— ${nt.am.ngay}/${nt.am.thang}${nt.am.nhuan ? ' nhuận' : ''} âm lịch`);
   }
-  if (nt.ghiChu) phan.push(`(${nt.ghiChu})`);
-  if (phan.length === 0 && nt.khongRo) return 'không rõ';
+  if (nt.ghiChu) phan.push(`— ${nt.ghiChu}`);
   return phan.join(' ') || undefined;
 }
 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useChiMuc } from '../boiCanh/GiaPhaContext';
 import { voChongCua } from '../lib/chiMuc';
+import { uocKhoangNamMat, uocKhoangNamSinh } from '../lib/uocNam';
 import { luuAnh, nenAnh } from '../lib/luuTru';
 import type { GioiTinh, ID, Person } from '../types/giapha';
 import AnhNguoi, { useDuongDanAnh } from './AnhNguoi';
@@ -104,6 +105,9 @@ export default function FormNguoi({
   };
 
   const banDoi = voChongCua(ci, p.id);
+  // Khoảng ước chừng để lần ra năm dương lịch khi chỉ còn nhớ can chi.
+  const uocSinh = uocKhoangNamSinh(ci, p);
+  const uocMat = uocKhoangNamMat(ci, p);
 
   return (
     <form
@@ -251,9 +255,28 @@ export default function FormNguoi({
           nhan="Ngày sinh (dương lịch)"
           giaTri={p.sinh}
           onDoi={(nt) => dat('sinh', nt)}
-          goiY="Chỉ nhớ mỗi năm thì ghi mỗi năm cũng được."
+          goiY="Nhớ được gì ghi nấy: mỗi năm, hoặc mỗi ngày tháng cũng được."
+          khoangUoc={uocSinh}
         />
-        <ONgayThang nhan="Ngày mất (dương lịch)" giaTri={p.mat} onDoi={(nt) => dat('mat', nt)} />
+        <ONgayThang
+          nhan="Ngày mất (dương lịch)"
+          giaTri={p.mat}
+          onDoi={(nt) => dat('mat', nt)}
+          khoangUoc={uocMat}
+        />
+
+        <label className="flex items-center gap-2 self-start rounded-xl bg-stone-50 px-3 py-2.5 text-sm ring-1 ring-stone-200 sm:col-span-2 toi:bg-stone-950 toi:ring-stone-800">
+          <input
+            type="checkbox"
+            checked={Boolean(p.daMat)}
+            onChange={(e) => dat('daMat', e.target.checked || undefined)}
+            className="!min-h-0 size-5"
+          />
+          <span>
+            <strong>Đã mất</strong> nhưng không ai còn nhớ năm nào. Có ghi ngày mất hoặc ngày giỗ
+            thì không cần tích ô này.
+          </span>
+        </label>
         <Truong nhan="Ngày giỗ âm lịch — ngày" goiY="Để trống thì phần mềm tự quy đổi từ ngày mất.">
           <input
             type="number"
