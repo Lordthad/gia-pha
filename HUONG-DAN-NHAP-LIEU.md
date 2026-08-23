@@ -53,6 +53,16 @@ sẽ hỏi **mẹ là ai** — chọn đúng người. Con vợ cả luôn ở v
 **Năm sinh** — ghi đủ 4 chữ số, ví dụ `1954`. Ghi thiếu là phần mềm bỏ qua.
 Không nhớ năm thì để trống, đừng ghi bừa.
 
+### Hai kiểu sơ đồ
+
+| Kiểu | Hiện gì | Dùng khi nào |
+|---|---|---|
+| **Sơ đồ đầy đủ** | Cả nam lẫn nữ, kèm vợ chồng từng người | Tra cứu hằng ngày, xem quan hệ |
+| **Sơ đồ rút gọn** | Chỉ dòng nam nối dõi — bỏ vợ, con gái, con rể | In treo, đóng vào đầu quyển gia phả |
+
+Rút gọn chỉ là cách *hiển thị*. Những người bị lược đi vẫn còn nguyên trong gia phả, bấm sang
+sơ đồ đầy đủ là thấy lại.
+
 ---
 
 ## Nhập đầy đủ hơn
@@ -61,6 +71,19 @@ Muốn ghi ngày giỗ, phần mộ, ảnh, tiểu sử: vào **⚙ Quản trị
 cần sửa. Hoặc từ ô sửa nhanh trên sơ đồ, bấm **Form đầy đủ**.
 
 Ngày tháng có ba ô riêng **Ngày / Tháng / Năm**, chỉ gõ được số. Chỉ nhớ mỗi năm thì điền mỗi ô Năm.
+
+---
+
+## In gia phả, lưu sơ đồ ra file
+
+Vào **⚙ Quản trị → Xuất / Nhập → Mở bản in / xuất PDF**, hoặc mở thẳng mục **In**.
+
+- Chọn kèm **sơ đồ rút gọn**, **đầy đủ**, **cả hai**, hay **không kèm**.
+- Bấm **In / Lưu thành PDF** để in hoặc lưu thành file PDF đóng sách.
+- Bấm **Tải sơ đồ (.svg)** để lưu riêng file sơ đồ. File .svg phóng to cỡ nào chữ cũng sắc nét,
+  mang ra hàng in khổ A2, A1 đều được. Mở xem bằng trình duyệt như mở một trang web.
+
+Sơ đồ đầy đủ rộng hơn nhiều, khi in nên chọn khổ **ngang** trong hộp thoại in.
 
 ---
 

@@ -1,15 +1,31 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useChiMuc, useGiaPha } from '../boiCanh/GiaPhaContext';
+import CayGiaPha from '../components/CayGiaPha';
 import Icon from '../components/Icon';
 import { canChiNam } from '../lib/amLich';
 import { conCuaNguoi, khoangNam, voChongCua } from '../lib/chiMuc';
 import { ngayGioCua } from '../lib/gio';
 import { cacDoi } from '../lib/timKiem';
+import { taiSvg, tenFileSoDo } from '../lib/xuatSoDo';
 
 export default function TrangIn() {
   const ci = useChiMuc();
   const { giaPha } = useGiaPha();
   const [keTieuSu, datKeTieuSu] = useState(true);
+  const [inSoDo, datInSoDo] = useState<'khong' | 'rut-gon' | 'day-du' | 'ca-hai'>('rut-gon');
+  const khungDayDu = useRef<HTMLDivElement>(null);
+  const khungRutGon = useRef<HTMLDivElement>(null);
+
+  const gocId = giaPha?.dongHo.thuyToId ?? ci.giaPha.nguoi[0]?.id;
+  const coSoDo = Boolean(gocId);
+  const hienDayDu = inSoDo === 'day-du' || inSoDo === 'ca-hai';
+  const hienRutGon = inSoDo === 'rut-gon' || inSoDo === 'ca-hai';
+
+  const taiVeSvg = (khung: React.RefObject<HTMLDivElement | null>, rutGon: boolean) => {
+    const svg = khung.current?.querySelector('svg');
+    if (!svg) return;
+    taiSvg(svg as SVGSVGElement, tenFileSoDo(giaPha?.dongHo.ten ?? 'gia-pha', rutGon));
+  };
   const ds = cacDoi(ci);
   const homNay = new Date();
 
@@ -41,6 +57,63 @@ export default function TrangIn() {
           />
           Kèm tiểu sử, công đức và phần mộ
         </label>
+
+        {coSoDo && (
+          <div className="space-y-2 border-t border-stone-200 pt-3 toi:border-stone-800">
+            <span className="block text-sm font-medium text-stone-600 toi:text-stone-400">
+              Sơ đồ cây kèm theo bản in
+            </span>
+            <div className="flex flex-wrap gap-1 rounded-xl bg-stone-100 p-1 toi:bg-stone-800">
+              {(
+                [
+                  ['rut-gon', 'Rút gọn'],
+                  ['day-du', 'Đầy đủ'],
+                  ['ca-hai', 'Cả hai'],
+                  ['khong', 'Không kèm'],
+                ] as const
+              ).map(([gt, nhan]) => (
+                <button
+                  key={gt}
+                  type="button"
+                  onClick={() => datInSoDo(gt)}
+                  className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                    inSoDo === gt
+                      ? 'bg-white text-amber-900 shadow-sm toi:bg-stone-700 toi:text-amber-300'
+                      : 'text-stone-600 toi:text-stone-400'
+                  }`}
+                >
+                  {nhan}
+                </button>
+              ))}
+            </div>
+            <p className="text-sm text-stone-600 toi:text-stone-400">
+              <strong>Rút gọn</strong> chỉ có dòng nam nối dõi nên vừa khổ giấy, hợp để treo hoặc
+              đóng vào đầu quyển. <strong>Đầy đủ</strong> có cả nữ và vợ chồng nên rộng hơn nhiều —
+              in nên chọn khổ ngang.
+            </p>
+
+            <div className="flex flex-wrap gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => taiVeSvg(khungRutGon, true)}
+                className="rounded-xl bg-stone-100 px-4 py-2.5 text-sm font-medium toi:bg-stone-800"
+              >
+                Tải sơ đồ rút gọn (.svg)
+              </button>
+              <button
+                type="button"
+                onClick={() => taiVeSvg(khungDayDu, false)}
+                className="rounded-xl bg-stone-100 px-4 py-2.5 text-sm font-medium toi:bg-stone-800"
+              >
+                Tải sơ đồ đầy đủ (.svg)
+              </button>
+            </div>
+            <p className="text-sm text-stone-500">
+              File .svg là ảnh vector: phóng to cỡ nào chữ cũng sắc nét, mang ra hàng in khổ A2, A1
+              đều được. Mở xem bằng trình duyệt như mở một trang web.
+            </p>
+          </div>
+        )}
         <button
           type="button"
           onClick={() => window.print()}
@@ -65,6 +138,47 @@ export default function TrangIn() {
             </p>
           )}
         </header>
+
+        {coSoDo && gocId && (
+          <>
+            {/* Không chọn thì thu về chiều cao 0 chứ không gỡ khỏi trang:
+                vẫn phải còn đó để nút tải file lấy được màu thật của sơ đồ. */}
+            <section
+              ref={khungRutGon}
+              className={`trang-in mb-8 ${hienRutGon ? '' : 'khong-in h-0 overflow-hidden'}`}
+            >
+              <h2 className="mb-2 text-center font-serif text-xl font-semibold">
+                Sơ đồ rút gọn — dòng nam nối dõi
+              </h2>
+              <CayGiaPha
+                ci={ci}
+                gocId={gocId}
+                soDoi={99}
+                phongTo={1}
+                chiConTrai
+                choIn
+                onChonGoc={() => {}}
+              />
+            </section>
+
+            <section
+              ref={khungDayDu}
+              className={`trang-in mb-8 ${hienDayDu ? '' : 'khong-in h-0 overflow-hidden'}`}
+            >
+              <h2 className="mb-2 text-center font-serif text-xl font-semibold">
+                Sơ đồ đầy đủ — cả nam lẫn nữ
+              </h2>
+              <CayGiaPha
+                ci={ci}
+                gocId={gocId}
+                soDoi={99}
+                phongTo={1}
+                choIn
+                onChonGoc={() => {}}
+              />
+            </section>
+          </>
+        )}
 
         {theoDoi.map(({ doi, nguoi }) => (
           <section key={doi} className="mb-8">

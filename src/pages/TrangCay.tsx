@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useChiMuc, useGiaPha } from '../boiCanh/GiaPhaContext';
 import AnhNguoi from '../components/AnhNguoi';
-import CayGiaPha from '../components/CayGiaPha';
+import CayGiaPha, { nguoiTrongSoDo } from '../components/CayGiaPha';
 import ChonNguoi from '../components/ChonNguoi';
 import Icon from '../components/Icon';
 import ThemNhanh, { type DuLieuNhanh } from '../components/ThemNhanh';
@@ -88,13 +88,14 @@ export default function TrangCay() {
   const [soDoi, datSoDoi] = useState(3);
   const [phongTo, datPhongTo] = useState(1);
   const [cheDoSua, datCheDoSua] = useState(false);
+  const [chiConTrai, datChiConTrai] = useState(false);
   const [hopThoai, datHopThoai] = useState<HopThoai>();
   const [rongCay, datRongCay] = useState(0);
   const khung = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     datPhongTo(1);
-  }, [gocId, soDoi]);
+  }, [gocId, soDoi, chiConTrai]);
 
   const nhanKichThuoc = useCallback((r: number) => datRongCay(r), []);
 
@@ -104,6 +105,14 @@ export default function TrangCay() {
       datPhongTo(Math.max(0.1, Math.min(2.5, +(rongKhung / rongCay).toFixed(2))));
     }
   };
+
+  // Nói rõ sơ đồ rút gọn đã lược đi bao nhiêu người, tránh hiểu nhầm là mất dữ liệu.
+  const soNguoiLuoc = useMemo(() => {
+    if (!gocId || !chiConTrai) return 0;
+    const day = nguoiTrongSoDo(ci, gocId, soDoi, false).size;
+    const gon = nguoiTrongSoDo(ci, gocId, soDoi, true).size;
+    return Math.max(0, day - gon);
+  }, [ci, gocId, soDoi, chiConTrai]);
 
   const trucHe = useMemo(() => {
     if (!gocId) return [];
@@ -389,6 +398,28 @@ export default function TrangCay() {
 
         {cheDo === 'so-do' && (
           <>
+            <div className="flex rounded-xl bg-stone-100 p-1 toi:bg-stone-800">
+              <button
+                type="button"
+                onClick={() => datChiConTrai(false)}
+                className={lopNut(!chiConTrai)}
+              >
+                Sơ đồ đầy đủ
+              </button>
+              <button
+                type="button"
+                onClick={() => datChiConTrai(true)}
+                className={lopNut(chiConTrai)}
+              >
+                Sơ đồ rút gọn
+              </button>
+            </div>
+            <p className="text-sm text-stone-600 toi:text-stone-400">
+              {chiConTrai
+                ? 'Chỉ hiện dòng nam nối dõi, theo lối gia phả nội tộc: bỏ vợ, con gái và con rể.'
+                : 'Hiện đủ cả nam lẫn nữ, kèm vợ chồng của từng người.'}
+            </p>
+
             <div className="flex flex-wrap items-center gap-3">
               <label className="flex items-center gap-2 text-sm">
                 <span className="text-stone-600 toi:text-stone-400">Hiển thị</span>
@@ -469,6 +500,7 @@ export default function TrangCay() {
               phongTo={phongTo}
               onChonGoc={(x) => dieuHuong(`/cay/${x}`)}
               onKichThuoc={nhanKichThuoc}
+              chiConTrai={chiConTrai}
               cheDoSua={cheDoSua}
               onSua={(x) => datHopThoai({ loai: 'sua', nguoiId: x })}
               onThemCon={(x) => datHopThoai({ loai: 'them-con', nguoiId: x })}
@@ -481,6 +513,20 @@ export default function TrangCay() {
               ? 'Mọi thay đổi lưu vào bản nháp trong máy. Vào Quản trị → Xuất / Nhập để đưa lên website.'
               : 'Kéo ngang để xem hết cây. Bấm vào một người để mở hồ sơ, bấm “+ người con” để xem tiếp nhánh đó.'}
           </p>
+          {chiConTrai && soNguoiLuoc > 0 && (
+            <p className="text-center text-sm text-stone-500 toi:text-stone-400">
+              Sơ đồ này lược đi {soNguoiLuoc} người (vợ, con gái, con rể). Họ vẫn còn nguyên trong
+              gia phả — xem ở{' '}
+              <button
+                type="button"
+                onClick={() => datChiConTrai(false)}
+                className="!min-h-0 font-medium text-amber-800 underline toi:text-amber-400"
+              >
+                sơ đồ đầy đủ
+              </button>
+              .
+            </p>
+          )}
         </>
       )}
 

@@ -37,12 +37,23 @@ interface NutCay {
   conAn: number;
 }
 
-function dungNut(ci: ChiMuc, id: ID, sauConLai: number, daQua: Set<ID>): NutCay {
+function dungNut(
+  ci: ChiMuc,
+  id: ID,
+  sauConLai: number,
+  daQua: Set<ID>,
+  chiConTrai = false,
+): NutCay {
   const nguoi = ci.byId.get(id)!;
   daQua.add(id);
-  const banDoi = voChongCua(ci, id);
-  const conTatCa = conCuaNguoi(ci, id).filter((c) => !daQua.has(c.id));
-  const con = sauConLai > 0 ? conTatCa.map((c) => dungNut(ci, c.id, sauConLai - 1, daQua)) : [];
+  // Sơ đồ rút gọn theo lối gia phả nội tộc: chỉ dòng nam nối dõi, bỏ vợ,
+  // con gái và con rể — con của con gái thuộc họ khác nên cũng không đi tiếp.
+  const banDoi = chiConTrai ? [] : voChongCua(ci, id);
+  const conTatCa = conCuaNguoi(ci, id).filter(
+    (c) => !daQua.has(c.id) && (!chiConTrai || c.gioiTinh === 'nam'),
+  );
+  const con =
+    sauConLai > 0 ? conTatCa.map((c) => dungNut(ci, c.id, sauConLai - 1, daQua, chiConTrai)) : [];
   return {
     id,
     nguoi,
@@ -53,6 +64,24 @@ function dungNut(ci: ChiMuc, id: ID, sauConLai: number, daQua: Set<ID>): NutCay 
   };
 }
 
+/** Những người thật sự xuất hiện trong sơ đồ, dùng để đếm ai bị lược đi. */
+export function nguoiTrongSoDo(
+  ci: ChiMuc,
+  gocId: ID,
+  soDoi: number,
+  chiConTrai = false,
+): Set<ID> {
+  const kq = new Set<ID>();
+  const di = (n: NutCay) => {
+    kq.add(n.id);
+    for (const bd of n.banDoi) kq.add(bd.nguoi.id);
+    for (const c of n.con) di(c);
+  };
+  if (!ci.byId.has(gocId)) return kq;
+  di(dungNut(ci, gocId, soDoi - 1, new Set(), chiConTrai));
+  return kq;
+}
+
 interface Props {
   ci: ChiMuc;
   gocId: ID;
@@ -60,6 +89,10 @@ interface Props {
   phongTo: number;
   onChonGoc: (id: ID) => void;
   onKichThuoc?: (rong: number) => void;
+  /** Chỉ vẽ dòng nam nối dõi, bỏ vợ, con gái và con rể. */
+  chiConTrai?: boolean;
+  /** Vẽ để in: bỏ khung cuộn, cho SVG co giãn theo bề ngang trang giấy. */
+  choIn?: boolean;
   /** Bật các nút thêm người ngay trên sơ đồ. */
   cheDoSua?: boolean;
   onSua?: (id: ID) => void;
@@ -121,6 +154,8 @@ export default function CayGiaPha({
   phongTo,
   onChonGoc,
   onKichThuoc,
+  chiConTrai = false,
+  choIn = false,
   cheDoSua = false,
   onSua,
   onThemCon,
@@ -131,7 +166,7 @@ export default function CayGiaPha({
   const cachDoc = cheDoSua ? CACH_DOC_SUA : CACH_DOC;
 
   const { nut, rong, cao, leX, leY } = useMemo(() => {
-    const duLieu = dungNut(ci, gocId, soDoi - 1, new Set());
+    const duLieu = dungNut(ci, gocId, soDoi - 1, new Set(), chiConTrai);
     const goc = hierarchy<NutCay>(duLieu, (d) => d.con);
     const boCuc = tree<NutCay>()
       .nodeSize([1, cachDoc])
@@ -156,21 +191,28 @@ export default function CayGiaPha({
       leX: -minX + le,
       leY: leTren,
     };
-  }, [ci, gocId, soDoi, cachDoc, cheDoSua]);
+  }, [ci, gocId, soDoi, cachDoc, cheDoSua, chiConTrai]);
 
   useEffect(() => {
     onKichThuoc?.(rong);
   }, [rong, onKichThuoc]);
 
   return (
-    <div className="overflow-auto rounded-2xl bg-white ring-1 ring-stone-200 toi:bg-stone-900 toi:ring-stone-800">
+    <div
+      className={
+        choIn
+          ? 'bg-white'
+          : 'overflow-auto rounded-2xl bg-white ring-1 ring-stone-200 toi:bg-stone-900 toi:ring-stone-800'
+      }
+    >
       <svg
-        width={rong * phongTo}
-        height={cao * phongTo}
+        {...(choIn
+          ? { width: '100%', style: { height: 'auto' } }
+          : { width: rong * phongTo, height: cao * phongTo })}
         viewBox={`0 0 ${rong} ${cao}`}
         className="block"
         role="img"
-        aria-label="Sơ đồ cây gia phả"
+        aria-label={chiConTrai ? 'Sơ đồ rút gọn, chỉ dòng nam' : 'Sơ đồ cây gia phả đầy đủ'}
       >
         <g transform={`translate(${leX}, ${leY})`}>
           {/* Đường nối cha mẹ với con */}
