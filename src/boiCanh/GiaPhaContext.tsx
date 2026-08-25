@@ -10,6 +10,7 @@ import {
 import { kiemTraMa } from '../lib/baoMat';
 import { dungChiMuc, type ChiMuc } from '../lib/chiMuc';
 import {
+  ghiMocDaDay,
   luuBanNhap,
   matKhauDaNho,
   moKhoaGiaPha,
@@ -48,6 +49,8 @@ interface BoiCanhGiaPha {
   datQuanTriMoKhoa: (v: boolean, ma?: string) => void;
   capNhat: (gp: GiaPha) => void;
   boBanNhap: () => Promise<void>;
+  /** Ghi nhận bản vừa đưa lên mạng thành công: máy này thôi giữ bản nháp. */
+  daDayLen: (gp: GiaPha, luc?: string) => void;
 }
 
 const Boi = createContext<BoiCanhGiaPha | undefined>(undefined);
@@ -68,6 +71,9 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
     napGiaPha()
       .then((kq) => {
         if (huy) return;
+        // Bản cũ trong máy đã bị bản trên mạng thay thế thì dọn đi, để lần mở
+        // sau khỏi phải hỏi lại lần nữa.
+        if (kq.nenXoaBanNhap) xoaBanNhap();
         datGiaPha(kq.giaPha);
         datTuBanNhap(kq.tuBanNhap);
         datGoiMaHoa(kq.goiMaHoa);
@@ -139,6 +145,29 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
     datTuBanNhap(true);
   }, []);
 
+  /**
+   * Đưa lên mạng xong thì bản trong máy chính là bản của cả họ, không còn là
+   * bản nháp nữa. Không dọn chỗ này thì máy vừa đẩy dữ liệu lại tự báo
+   * "trên mạng có bản mới hơn", và bản nháp cũ còn nằm đó che mất lần cập
+   * nhật sau của người khác.
+   */
+  const daDayLen = useCallback((gp: GiaPha, luc?: string) => {
+    if (!luc) {
+      xoaBanNhap();
+      datTuBanNhap(false);
+      return;
+    }
+    // Giữ lại bản trong máy nhưng đánh dấu là bản đã đưa lên: website mất một
+    // hai phút mới dựng xong, tải lại trang ngay mà không có nó thì lại thấy
+    // bản cũ như chưa hề cập nhật.
+    const moi = { ...gp, capNhat: luc };
+    datGiaPha(moi);
+    luuBanNhap(moi);
+    ghiMocDaDay(luc);
+    datTuBanNhap(false);
+    datCapNhatTrenMang(luc);
+  }, []);
+
   const boBanNhap = useCallback(async () => {
     xoaBanNhap();
     datDangTai(true);
@@ -182,6 +211,7 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
       datQuanTriMoKhoa,
       capNhat,
       boBanNhap,
+      daDayLen,
     }),
     [
       giaPha,
@@ -201,6 +231,7 @@ export function GiaPhaProvider({ children }: { children: ReactNode }) {
       datQuanTriMoKhoa,
       capNhat,
       boBanNhap,
+      daDayLen,
     ],
   );
 

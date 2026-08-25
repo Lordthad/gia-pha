@@ -4,6 +4,7 @@ import { giaiMa, laGoiMaHoa, maHoa } from './baoMat';
 const KHOA_MAT_KHAU = 'gia-pha:mat-khau';
 
 const KHOA_NHAP = 'gia-pha:ban-nhap';
+const KHOA_DA_DAY = 'gia-pha:da-day-len';
 const KHOA_ANH = 'gia-pha-anh';
 
 /* ---------------- Ảnh lưu trong IndexedDB ---------------- */
@@ -107,6 +108,25 @@ export function docBanNhap(): GiaPha | undefined {
 
 export function xoaBanNhap(): void {
   localStorage.removeItem(KHOA_NHAP);
+  localStorage.removeItem(KHOA_DA_DAY);
+}
+
+/**
+ * Mốc của bản mà chính máy này vừa đưa lên mạng thành công.
+ * Nhờ nó mà bản còn giữ trong máy được phân biệt: bản sửa dở chưa ai thấy, hay
+ * bản đã là của cả họ rồi. Bản đã đưa lên thì gặp bản mới hơn của người khác là
+ * nhường luôn, khỏi bắt ai phải bấm gì.
+ */
+export function ghiMocDaDay(luc: string): void {
+  try {
+    localStorage.setItem(KHOA_DA_DAY, luc);
+  } catch {
+    // Trình duyệt chặn lưu trữ — cùng lắm là lần sau phải bấm lấy bản mới.
+  }
+}
+
+export function docMocDaDay(): string | undefined {
+  return localStorage.getItem(KHOA_DA_DAY) ?? undefined;
 }
 
 /**
@@ -126,6 +146,12 @@ export interface KetQuaNap {
   goiMaHoa?: GoiMaHoa;
   /** Mốc cập nhật của file trên mạng, để so xem bản nháp trong máy có cũ hơn không. */
   capNhatTrenMang?: string;
+  /**
+   * Bản cũ còn sót trong máy đã bị bỏ qua vì trên mạng có bản mới hơn.
+   * Việc dọn để người gọi làm, vì hàm này có thể chạy hai lần chồng nhau —
+   * dọn ngay tại đây thì lượt chạy sau không còn thấy dấu vết để quyết định.
+   */
+  nenXoaBanNhap?: boolean;
 }
 
 /** Mật khẩu xem đã ghi nhớ trên máy này (nếu người dùng chọn nhớ). */
@@ -153,6 +179,7 @@ export function quenMatKhau(): void {
  */
 export async function napGiaPha(): Promise<KetQuaNap> {
   const nhap = docBanNhap();
+  let boCuDi = false;
 
   let noiDung: unknown;
   let loiTai: string | undefined;
@@ -168,8 +195,23 @@ export async function napGiaPha(): Promise<KetQuaNap> {
     ? noiDung.capNhat
     : (noiDung as GiaPha | undefined)?.capNhat;
 
-  // Đang sửa dở thì giữ nguyên việc của người dùng, chỉ kèm mốc trên mạng để đối chiếu.
-  if (nhap) return { giaPha: nhap, tuBanNhap: true, capNhatTrenMang };
+  if (nhap) {
+    const daDay = docMocDaDay();
+    if (daDay && nhap.capNhat === daDay) {
+      // Bản trong máy chính là bản máy này vừa đưa lên, không phải bản sửa dở.
+      // Trên mạng chưa có gì mới hơn thì cứ dùng nó: GitHub Pages dựng lại mất
+      // một hai phút, trong lúc đó file cũ vẫn còn nằm đó.
+      if (!capNhatTrenMang || capNhatTrenMang <= nhap.capNhat) {
+        return { giaPha: nhap, tuBanNhap: false, capNhatTrenMang };
+      }
+      // Người khác đã đưa lên bản mới hơn mà máy này không có gì chưa lưu:
+      // bỏ bản cũ trong máy, lấy bản mới về, không phiền ai nhập mã quản trị.
+      boCuDi = true;
+    } else {
+      // Đang sửa dở thì giữ nguyên việc của người dùng, chỉ kèm mốc trên mạng để đối chiếu.
+      return { giaPha: nhap, tuBanNhap: true, capNhatTrenMang };
+    }
+  }
 
   if (noiDung === undefined) throw new Error(loiTai ?? 'Không đọc được file dữ liệu');
 
@@ -181,14 +223,20 @@ export async function napGiaPha(): Promise<KetQuaNap> {
           giaPha: JSON.parse(await giaiMa(noiDung, daNho)) as GiaPha,
           tuBanNhap: false,
           capNhatTrenMang,
+          nenXoaBanNhap: boCuDi,
         };
       } catch {
         quenMatKhau();
       }
     }
-    return { tuBanNhap: false, goiMaHoa: noiDung, capNhatTrenMang };
+    return { tuBanNhap: false, goiMaHoa: noiDung, capNhatTrenMang, nenXoaBanNhap: boCuDi };
   }
-  return { giaPha: noiDung as GiaPha, tuBanNhap: false, capNhatTrenMang };
+  return {
+    giaPha: noiDung as GiaPha,
+    tuBanNhap: false,
+    capNhatTrenMang,
+    nenXoaBanNhap: boCuDi,
+  };
 }
 
 /** Mở khoá gói dữ liệu đã mã hoá; mật khẩu sai sẽ ném MatKhauSai. */
@@ -215,6 +263,19 @@ export async function noiDungXuat(gp: GiaPha, matKhau?: string): Promise<string>
   const tho = JSON.stringify({ ...gp, capNhat: luc }, null, 2);
   if (!matKhau) return tho;
   return JSON.stringify(await maHoa(tho, matKhau, luc), null, 2);
+}
+
+/**
+ * Mốc cập nhật ghi trong nội dung vừa xuất, đọc được cả khi đã mã hoá vì
+ * `capNhat` nằm ngoài phần mã hoá. Dùng để máy vừa đưa lên mạng biết bản trong
+ * máy mình chính là bản trên mạng, khỏi tự báo động là mình đang giữ bản cũ.
+ */
+export function mocCapNhat(noiDung: string): string | undefined {
+  try {
+    return (JSON.parse(noiDung) as { capNhat?: string }).capNhat;
+  } catch {
+    return undefined;
+  }
 }
 
 export async function xuatJson(gp: GiaPha, matKhau?: string): Promise<void> {

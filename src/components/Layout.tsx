@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useGiaPha } from '../boiCanh/GiaPhaContext';
+import HoiCapNhat from './HoiCapNhat';
 import Icon, { type TenIcon } from './Icon';
 import Logo from './Logo';
 
@@ -29,6 +30,12 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { giaPha, tuBanNhap, banTrenMangMoiHon, capNhatTrenMang } = useGiaPha();
   const [toi, doiGiaoDien] = useCheDoToi();
   const viTri = useLocation();
+  // Hỏi ngay khi mở website chứ không đợi người ta để ý dòng chữ đỏ.
+  const [hoiCapNhat, datHoiCapNhat] = useState(false);
+
+  useEffect(() => {
+    if (banTrenMangMoiHon) datHoiCapNhat(true);
+  }, [banTrenMangMoiHon]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -97,9 +104,17 @@ export default function Layout({ children }: { children: ReactNode }) {
               ? ` (cập nhật ${new Date(capNhatTrenMang).toLocaleString('vi-VN')})`
               : ''}
             . Máy này đang xem bản nháp cũ.{' '}
-            <Link to="/quan-tri" className="font-semibold underline">
-              Vào Quản trị để nạp bản mới
-            </Link>
+            {/*
+              Nút này cố tình không hỏi mã quản trị: chỉ xem thôi thì ai trong họ
+              cũng phải lấy được bản mới nhất, kể cả trên điện thoại không giữ mã.
+            */}
+            <button
+              type="button"
+              onClick={() => datHoiCapNhat(true)}
+              className="font-semibold underline"
+            >
+              Lấy bản mới về máy này
+            </button>
           </div>
         ) : (
           tuBanNhap && (
@@ -112,6 +127,8 @@ export default function Layout({ children }: { children: ReactNode }) {
           )
         )}
       </header>
+
+      {hoiCapNhat && banTrenMangMoiHon && <HoiCapNhat onDong={() => datHoiCapNhat(false)} />}
 
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 pt-4 pb-24 md:pb-10">{children}</main>
 

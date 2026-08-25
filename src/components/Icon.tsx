@@ -22,7 +22,8 @@ export type TenIcon =
   | 'luu'
   | 'canh-bao'
   | 'mo-rong'
-  | 'thu-gon';
+  | 'thu-gon'
+  | 'tai-ve';
 
 const DUONG: Record<TenIcon, string> = {
   nha: 'M3 10.5 12 3l9 7.5M5.5 9.5V20h13V9.5M10 20v-5.5h4V20',
@@ -45,6 +46,7 @@ const DUONG: Record<TenIcon, string> = {
   'canh-bao': 'M12 4 2.5 20h19L12 4Zm0 5v6m0 3v.5',
   'mo-rong': 'M6 9l6 6 6-6',
   'thu-gon': 'M6 15l6-6 6 6',
+  'tai-ve': 'M12 4v10m0 0 4-4m-4 4-4-4M5 19h14',
 };
 
 export default function Icon({ ten, className = 'size-5' }: Props) {

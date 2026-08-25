@@ -99,6 +99,17 @@ Nhập xong mà không làm bước này thì **chỉ mình máy này thấy**, 
 Website cập nhật sau khoảng **1–2 phút**. Nếu mở lại ngay mà chưa thấy thì đợi thêm chút.
 
 Trên đầu màn hình còn thanh vàng **"Đang dùng bản nháp chưa xuất"** tức là còn thứ chưa đưa lên.
+Đưa lên xong thanh vàng tự tắt.
+
+**Máy khác, điện thoại khác thì sao?** Không phải làm gì cả: cứ mở website lên là
+thấy bản mới nhất, không cần mã quản trị.
+
+Chỉ khi máy đó đang giữ phần sửa dở chưa đưa lên thì mới hiện hộp hỏi
+**"Gia phả có bản mới — Lấy bản mới về máy này để xem cho đúng nhé?"**:
+
+- Bấm **Có, lấy bản mới** là xong (phần sửa dở của máy đó bỏ đi, phải nhập lại).
+- Bấm **Không, giữ nguyên** thì cứ xem tiếp bản cũ; lúc nào muốn lấy thì bấm
+  dòng chữ đỏ trên đầu màn hình.
 
 ---
 
@@ -106,7 +117,7 @@ Trên đầu màn hình còn thanh vàng **"Đang dùng bản nháp chưa xuất
 
 | Máy báo | Nghĩa là | Làm gì |
 |---|---|---|
-| *"Trên mạng đã có bản mới hơn"* | Người khác vừa cập nhật | Tải lại trang, nhập lại phần vừa sửa |
+| *"Gia phả có bản mới"* | Người khác vừa cập nhật, máy này còn phần sửa dở | Bấm **Có, lấy bản mới**, rồi nhập lại phần vừa sửa |
 | *"Mã truy cập sai hoặc đã hết hạn"* | Mã hết hạn | Gọi người lo việc gia phả xin mã mới |
 | *"Mã không đúng"* | Gõ nhầm mã quản trị | Gõ lại, để ý chữ hoa chữ thường |
 | Nút **Đưa lên mạng ngay** mờ, bấm không được | Chưa mở khoá mã truy cập | Vào thẻ Bảo mật, nhập lại mã quản trị |

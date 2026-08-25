@@ -28,6 +28,7 @@ import {
   ghiVaoThuMuc,
   hoTroGhiThuMuc,
   maMoi,
+  mocCapNhat,
   noiDungXuat,
   xuatJson,
   xuatZip,
@@ -74,7 +75,7 @@ function tachDongCsv(dong: string): string[] {
 
 export default function QuanTri() {
   const ci = useChiMuc();
-  const { giaPha, capNhat, boBanNhap, tuBanNhap, matKhauXem, datMatKhauXem, quanTriMoKhoa, maQuanTriDangDung, moKhoaQuanTri, datQuanTriMoKhoa } =
+  const { giaPha, capNhat, boBanNhap, daDayLen, tuBanNhap, matKhauXem, datMatKhauXem, quanTriMoKhoa, maQuanTriDangDung, moKhoaQuanTri, datQuanTriMoKhoa } =
     useGiaPha();
   const [thamSo] = useSearchParams();
   const [tab, datTab] = useState<Tab>('nguoi');
@@ -242,6 +243,8 @@ Vẫn đưa lên?`;
     try {
       const noiDung = await noiDungXuat(gp, matKhauXem);
       datThongBao(await dayLenGitHub(cauHinhDay, gp, noiDung, datThongBao));
+      // Đưa lên xong thì bỏ bản nháp trong máy: từ đây bản trên mạng là bản chính.
+      daDayLen(gp, mocCapNhat(noiDung));
     } catch (e) {
       datGhLoi(e instanceof Error ? e.message : String(e));
     } finally {
